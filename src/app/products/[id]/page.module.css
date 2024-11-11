@@ -1,0 +1,80 @@
+.productDetail {
+	max-width: 600px;
+	margin: 2rem auto;
+	padding: 1rem;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .backLink {
+	display: inline-block;
+	margin-bottom: 1rem;
+	color: #3498db;
+	text-decoration: none;
+	font-weight: bold;
+  }
+  
+  .backLink:hover {
+	text-decoration: underline;
+  }
+  
+  .name {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	color: #2c3e50;
+  }
+  
+  .price {
+	font-size: 1.5rem;
+	color: #e74c3c;
+	margin-bottom: 1rem;
+  }
+  
+  .description {
+	color: #34495e;
+	margin-bottom: 1.5rem;
+	line-height: 1.6;
+  }
+  
+  .addToCartButton {
+	background-color: #2ecc71;
+	color: white;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+	margin-right: 1rem;
+  }
+  
+  .addToCartButton:hover {
+	background-color: #27ae60;
+  }
+  
+  .addToCartButton:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.3);
+  }
+  
+  .removeButton {
+	background-color: #e74c3c;
+	color: white;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+  }
+  
+  .removeButton:hover {
+	background-color: #c0392b;
+  }
+  
+  .removeButton:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+  }

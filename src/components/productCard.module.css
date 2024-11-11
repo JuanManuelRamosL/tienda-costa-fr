@@ -1,0 +1,28 @@
+.card {
+	border: 1px solid #ddd;
+	padding: 1rem;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .name {
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin: 0 0 0.5rem 0;
+  }
+  
+  .price {
+	color: #666;
+	margin: 0 0 0.5rem 0;
+  }
+  
+  .description {
+	font-size: 0.9rem;
+	color: #333;
+	margin: 0;
+  }
