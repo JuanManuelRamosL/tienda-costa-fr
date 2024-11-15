@@ -22,7 +22,8 @@ export default function ProductDetail() {
     nombre: user?.name || "",
     email: user?.email || "",
     direccion: "",
-    telefono:""
+    telefono: "",
+    quantity: 1, // Nuevo campo para la cantidad
   });
 
   if (!product) {
@@ -42,21 +43,24 @@ export default function ProductDetail() {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: name === "quantity" ? Math.max(1, parseInt(value) || 1) : value, // Asegura que quantity sea un entero mayor o igual a 1
     }));
   };
 
   const handleFormSubmit = async () => {
+    const totalPrice = product.price * formData.quantity; // Calcula el precio total
+
     console.log({
       title: product.name,
-      price: product.price,
-      quantity: 1,
+      price: totalPrice, // Precio total enviado
+      quantity: formData.quantity,
       unit_price: Number(product.price),
       direccion: formData.direccion,
       nombre: formData.nombre,
       email: formData.email,
-      telefono:formData.telefono
-    })
+      telefono: formData.telefono,
+    });
+
     try {
       const response = await fetch(
         "https://tienda-costa-bakend.vercel.app/api/create-order",
@@ -67,13 +71,13 @@ export default function ProductDetail() {
           },
           body: JSON.stringify({
             title: product.name,
-            price: product.price,
-            quantity: 1,
+            price: totalPrice, // Precio total enviado
+            quantity: formData.quantity,
             unit_price: Number(product.price),
             direccion: formData.direccion,
             nombre: formData.nombre,
             email: formData.email,
-            telefono:formData.telefono
+            telefono: formData.telefono,
           }),
         }
       );
@@ -93,70 +97,79 @@ export default function ProductDetail() {
   };
 
   return (
-<>
-<Link href="/" className={styles.backLink}>
-    &larr; Volver a la tienda
-  </Link>
-    <div className={styles.productDetail}>
- 
-    <img src={product.image} alt="" />
-    <h2 className={styles.name}>{product.name}</h2>
-    <p className={styles.description}>{product.description}</p>
-    <p className={styles.price}>${product.price}</p>
-    <button className={styles.buyButton} onClick={handleBuy}>
-      Comprar
-    </button>
-    <button className={styles.removeButton} onClick={handleRemoveProduct}>
-      Eliminar producto
-    </button>
+    <>
+      <Link href="/" className={styles.backLink}>
+        &larr; Volver a la tienda
+      </Link>
+      <div className={styles.productDetail}>
+        <img src={product.image} alt="" />
+        <h2 className={styles.name}>{product.name}</h2>
+        <p className={styles.description}>{product.description}</p>
+        <p className={styles.price}>${product.price}</p>
+        <button className={styles.buyButton} onClick={handleBuy}>
+          Comprar
+        </button>
+        <button className={styles.removeButton} onClick={handleRemoveProduct}>
+          Eliminar producto
+        </button>
 
-    {showModal && (
-      <div className={styles.modal}>
-        <div className={styles.modalContent}>
-          <h3>Completa tus datos</h3>
-          <label>
-            Nombre:
-            <input
-              type="text"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Dirección:
-            <input
-              type="text"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleInputChange}
-            />
-          </label>
-          <label>
-            Telefono:
-            <input
-              type="text"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleInputChange}
-            />
-          </label>
-          <button onClick={handleFormSubmit}>Confirmar Compra</button>
-          <button onClick={() => setShowModal(false)}>Cancelar</button>
-        </div>
+        {showModal && (
+          <div className={styles.modal}>
+            <div className={styles.modalContent}>
+              <h3>Completa tus datos</h3>
+              <label>
+                Nombre:
+                <input
+                  type="text"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label>
+                Email:
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label>
+                Dirección:
+                <input
+                  type="text"
+                  name="direccion"
+                  value={formData.direccion}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label>
+                Teléfono:
+                <input
+                  type="text"
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label>
+                Cantidad:
+                <input
+                  type="number"
+                  name="quantity"
+                  min="1"
+                  value={formData.quantity}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <p>Total: ${product.price * formData.quantity}</p>
+              <button onClick={handleFormSubmit}>Confirmar Compra</button>
+              <button onClick={() => setShowModal(false)}>Cancelar</button>
+            </div>
+          </div>
+        )}
       </div>
-    )}
-  </div>
-</>
-   
+    </>
   );
 }

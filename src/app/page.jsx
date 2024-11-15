@@ -123,16 +123,20 @@ export default function Home() {
         </button>
         <div className={styles.productGrid}>
           {currentProducts.map((product, index) => (
-            <Link
+ /*            <Link
               href={`/products/${product.id}`}
               key={product.id}
               className={`${styles.productLink} ${styles.slideIn}`}
               style={{
                 animationDelay: `${index * 0.1}s`,
               }}
-            >
-              <ProductCard product={product} />
-            </Link>
+            > */
+            <>
+             <ProductCard product={product} />
+            </>
+             
+
+            // </Link>
           ))}
         </div>
         <button onClick={handleNext} className={styles.scrollButtonNext} disabled={currentPage === totalPages - 1}>

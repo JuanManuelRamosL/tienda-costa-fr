@@ -41,6 +41,12 @@
 	background-color: #007bff;
 	gap: 10px;
 	color: #fff;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.interacciones:hover{
+	background-color: #000000;
 }
 
 .button {
@@ -69,3 +75,32 @@
 	width: 200px;
 	height: 200px;
 }
+
+.feedbackMessage {
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #4caf50; /* Verde éxito */
+	color: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 14px;
+	animation: fadeInOut 2s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+	0% {
+	  opacity: 0;
+	}
+	20% {
+	  opacity: 1;
+	}
+	80% {
+	  opacity: 1;
+	}
+	100% {
+	  opacity: 0;
+	}
+  }
+  
