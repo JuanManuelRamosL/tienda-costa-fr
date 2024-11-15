@@ -1,27 +1,167 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import ProductCard from '../components/productCard'
-import styles from './page.module.css'
-import useStore from '../../store'
+import Link from "next/link";
+import ProductCard from "../components/productCard";
+import styles from "./page.module.css";
+import useStore from "../../store";
+import Nav from "@/components/nav";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Home() {
-  const products = useStore((state) => state.products)
+  const products = useStore((state) => state.products);
+  const setProducts = useStore((state) => state.setProducts);
+  const { data: session, status } = useSession();
+  
+  const [currentPage, setCurrentPage] = useState(0);
+  const [gridPage, setGridPage] = useState(0);
+  const [filter, setFilter] = useState("todos");
+  const [searchTerm, setSearchTerm] = useState("");
+  const itemsPerPage = 4;
+  const gridItemsPerPage = 3;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("https://tienda-costa-bakend.vercel.app/api/products");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error al obtener los productos:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [setProducts]);
+
+  // Filtrado solo para el carrusel
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = filter === "todos" || product.category === filter;
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const gridTotalPages = Math.ceil(products.length / gridItemsPerPage); // Productos no filtrados en la tabla
+
+  const startIndex = currentPage * itemsPerPage;
+  const currentProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+
+  const gridStartIndex = gridPage * gridItemsPerPage;
+  const currentGridProducts = products.slice(gridStartIndex, gridStartIndex + gridItemsPerPage); // Productos no filtrados en la tabla
+
+  const handlePrevious = () => {
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
+    else setCurrentPage(0);
+  };
+
+  const handleGridPrevious = () => {
+    if (gridPage > 0) setGridPage(gridPage - 1);
+  };
+
+  const handleGridNext = () => {
+    if (gridPage < gridTotalPages - 1) setGridPage(gridPage + 1);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+    setCurrentPage(0);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(0);
+  };
+
 
   return (
     <div>
-      <h2 className={styles.title}>Nuestros Productos</h2>
-      <div className={styles.productGrid}>
-        {products.map(product => (
-          <Link 
-            href={`/products/${product.id}`}
-            key={product.id} 
-            className={styles.productLink}
-          >
-            <ProductCard product={product} />
-          </Link>
-        ))}
+      <Nav />
+      <div className={styles.containerBuscador}>
+        <input
+          type="text"
+          placeholder="Buscar producto"
+          className={styles.buscador}
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        <svg
+          width="30px"
+          height="100%"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={styles.icon}
+        >
+          <path
+            d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <select
+          className={styles.filtro}
+          onChange={handleFilterChange}
+          value={filter}
+        >
+          <option value="todos">Todos</option>
+          <option value="suplementos">Suplementos</option>
+          <option value="ropa">Ropa</option>
+        </select>
+      </div>
+
+      {/* Carrusel filtrado */}
+      <div className={styles.containerGrid}>
+        <button onClick={handlePrevious} className={styles.scrollButtonPrev} disabled={currentPage === 0}>
+          {"<"}
+        </button>
+        <div className={styles.productGrid}>
+          {currentProducts.map((product, index) => (
+            <Link
+              href={`/products/${product.id}`}
+              key={product.id}
+              className={`${styles.productLink} ${styles.slideIn}`}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+              }}
+            >
+              <ProductCard product={product} />
+            </Link>
+          ))}
+        </div>
+        <button onClick={handleNext} className={styles.scrollButtonNext} disabled={currentPage === totalPages - 1}>
+          {">"}
+        </button>
+      </div>
+
+      {/* Tabla de todos los productos sin filtro de búsqueda */}
+      <div className={styles.gridContainer}>
+        <h2 className={styles.gridTitle}>Todos los Productos</h2>
+        <div className={styles.grid}>
+          {currentGridProducts.map((product) => (
+            <div key={product.id} className={styles.gridCard}>
+              <img src={product.image} alt={product.name} className={styles.productImage} />
+              <h3 className={styles.productName}>{product.name}</h3>
+              <p className={styles.productPrice}>${product.price}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.paginationControls}>
+          <button onClick={handleGridPrevious} disabled={gridPage === 0}>
+            Anterior
+          </button>
+          <span>Página {gridPage + 1} de {gridTotalPages}</span>
+          <button onClick={handleGridNext} disabled={gridPage === gridTotalPages - 1}>
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,17 +1,24 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 const useStore = create((set) => ({
-  products: [
-    { id: 1, name: "Camiseta", price: 19.99, description: "Una cómoda camiseta de algodón" },
-    { id: 2, name: "Pantalones", price: 39.99, description: "Pantalones vaqueros de alta calidad" },
-    { id: 3, name: "Zapatos", price: 59.99, description: "Zapatos elegantes y duraderos" },
-  ],
+  products: [],
+  user: null,
+  cart: [],
+  setProducts: (products) => set({ products }), // Función para establecer los productos
   addProduct: (product) => set((state) => ({ 
     products: [...state.products, product] 
   })),
   removeProduct: (id) => set((state) => ({ 
     products: state.products.filter(product => product.id !== id) 
   })),
-}))
+  setUser: (userData) => set({ user: userData }),
+  clearUser: () => set({ user: null }),
+  addToCart: (product) => set((state) => ({
+    cart: [...state.cart, product],
+  })),
+  removeFromCart: (productId) => set((state) => ({
+    cart: state.cart.filter(product => product.id !== productId),
+  })),
+}));
 
-export default useStore
+export default useStore;

@@ -4,13 +4,181 @@
   margin-bottom: 1rem;
 }
 
+.containerGrid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  align-items: center;
+}
+
+.scrollButtonNext,
+.scrollButtonPrev {
+
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  background-color: #eee;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 25px;
+  z-index: 1000;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.scrollButtonNext {
+  right: 8%;
+}
+
+.scrollButtonPrev {
+  left: 8%;
+}
+
 .productGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+  display: flex;
+  justify-content: center; /* Alineación horizontal de los productos */
+  align-items: flex-start; /* Alineación vertical para evitar el desbordamiento */
+  gap: 20px; /* Espaciado entre los productos */
+  padding: 20px;
+  width: 75%; /* Ajuste dinámico según el tamaño de la pantalla */
+  margin: 20px 0;
+  background: rgba(255, 255, 255, 0.4);
+  background-color: #b1b1b1;
+  border-radius: 17px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1287px) {
+  .productGrid {
+    flex-wrap: wrap;
+  }
 }
 
 .productLink {
   text-decoration: none;
   color: inherit;
+  opacity: 0; /* Inicialmente oculto para la animación */
+  transform: translateX(100%); /* Comienza fuera de la pantalla a la derecha */
+  animation: slideInFromRight 0.5s forwards; /* Aplica la animación */
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.containerBuscador {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.buscador {
+  width: 30%;
+  height: 35px;
+  outline: none;
+  border: none;
+  border-radius: 17px;
+}
+
+.buscador:placeholder {
+  color: #000;
+}
+
+.filtro {
+  height: 35px;
+  cursor: pointer;
+  border-radius: 7px;
+  outline: none;
+}
+
+.icon {
+  position: relative;
+  left: -60px;
+}
+
+
+.gridContainer {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.gridTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.gridCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.productName {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.productPrice {
+  font-size: 1rem;
+  color: #333;
+}
+
+.paginationControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.paginationControls button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.paginationControls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
