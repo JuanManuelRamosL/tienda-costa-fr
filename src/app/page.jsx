@@ -90,21 +90,21 @@ export default function Home() {
           onChange={handleSearchChange}
         />
         <svg
-          width="30px"
-          height="100%"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={styles.icon}
-        >
-          <path
-            d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+      width="30px"
+      height="100%"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={styles.icon}
+    >
+      <path
+        d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
         <select
           className={styles.filtro}
           onChange={handleFilterChange}
@@ -123,20 +123,14 @@ export default function Home() {
         </button>
         <div className={styles.productGrid}>
           {currentProducts.map((product, index) => (
- /*            <Link
-              href={`/products/${product.id}`}
-              key={product.id}
-              className={`${styles.productLink} ${styles.slideIn}`}
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
-            > */
-            <>
-             <ProductCard product={product} />
-            </>
-             
 
-            // </Link>
+            <div key={product.id} className={`${styles.productLink} ${styles.slideIn}`}
+            style={{
+              animationDelay: `${index * 0.1}s`,
+            }}>
+             <ProductCard product={product} />
+            </div>
+       
           ))}
         </div>
         <button onClick={handleNext} className={styles.scrollButtonNext} disabled={currentPage === totalPages - 1}>

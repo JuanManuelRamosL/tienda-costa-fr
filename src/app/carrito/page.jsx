@@ -1,37 +1,44 @@
-// Carrito.jsx
-"use client"
+"use client";
 import useStore from "../../../store";
+import styles from "./Carrito.module.css"; // Importa los estilos personalizados
 
 const Carrito = () => {
-
   const cart = useStore((state) => state.cart);
   const removeFromCart = useStore((state) => state.removeFromCart);
+
   const handleRemoveFromCart = (productId) => {
     removeFromCart(productId);
   };
 
+  const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+
   return (
-    <div>
-      <h2>Carrito de Compras</h2>
-      <div>
+    <div className={styles.cartContainer}>
+      <h2 className={styles.title}>Carrito de Compras</h2>
+      <div className={styles.cartItems}>
         {cart.length === 0 ? (
-          <p>No hay productos en el carrito.</p>
+          <p className={styles.emptyCart}>No hay productos en el carrito.</p>
         ) : (
           cart.map((product) => (
-            <div key={product.id}>
-              <img src={product.image} alt={product.name} width={50} />
-              <h3>{product.name}</h3>
-              <p>${product.price}</p>
-              <button onClick={() => handleRemoveFromCart(product.id)}>
+            <div key={product.id} className={styles.cartItem}>
+              <img src={product.image} alt={product.name} className={styles.image} />
+              <div className={styles.info}>
+                <h3 className={styles.name}>{product.name}</h3>
+                <p className={styles.price}>${product.price}</p>
+              </div>
+              <button
+                className={styles.removeButton}
+                onClick={() => handleRemoveFromCart(product.id)}
+              >
                 Eliminar
               </button>
             </div>
           ))
         )}
       </div>
-      <p>
-        Total: ${cart.reduce((total, product) => total + product.price, 0)}
-      </p>
+      <div className={styles.total}>
+        <p>Total: <span>${totalPrice}</span></p>
+      </div>
     </div>
   );
 };
