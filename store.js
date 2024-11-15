@@ -13,9 +13,13 @@ const useStore = create((set) => ({
   })),
   setUser: (userData) => set({ user: userData }),
   clearUser: () => set({ user: null }),
-  addToCart: (product) => set((state) => ({
-    cart: [...state.cart, product],
-  })),
+  addToCart: (product) => set((state) => {
+    const alreadyInCart = state.cart.some(item => item.id === product.id); // Verificar si ya está en el carrito
+    if (!alreadyInCart) {
+      return { cart: [...state.cart, product] };
+    }
+    return state; // No cambia el estado si ya está en el carrito
+  }),
   removeFromCart: (productId) => set((state) => ({
     cart: state.cart.filter(product => product.id !== productId),
   })),

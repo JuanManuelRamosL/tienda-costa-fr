@@ -38,15 +38,16 @@
 	align-items: center;
 	margin-top: 10px;
 	border-radius: 7px;
-	background-color: #007bff;
+	background: rgba(31, 31, 33, 1);
 	gap: 10px;
 	color: #fff;
 	transition: 0.3s;
 	cursor: pointer;
 }
 
-.interacciones:hover{
-	background-color: #000000;
+.interacciones:hover {
+	background: rgba(245, 157, 8, 1);
+	color: #000;
 }
 
 .button {
@@ -81,26 +82,29 @@
 	top: -10px;
 	left: 50%;
 	transform: translateX(-50%);
-	background-color: #4caf50; /* Verde éxito */
+	background-color: #4caf50;
+	/* Verde éxito */
 	color: white;
 	padding: 5px 10px;
 	border-radius: 5px;
 	font-size: 14px;
 	animation: fadeInOut 2s ease-in-out;
-  }
-  
-  @keyframes fadeInOut {
+}
+
+@keyframes fadeInOut {
 	0% {
-	  opacity: 0;
+		opacity: 0;
 	}
+
 	20% {
-	  opacity: 1;
+		opacity: 1;
 	}
+
 	80% {
-	  opacity: 1;
+		opacity: 1;
 	}
+
 	100% {
-	  opacity: 0;
+		opacity: 0;
 	}
-  }
-  
+}

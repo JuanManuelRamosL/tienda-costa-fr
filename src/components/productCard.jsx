@@ -19,10 +19,9 @@ export default function ProductCard({ product }) {
         <div className={styles.containerImage}>
           <img src={product.image} alt="" className={styles.image} />
         </div>
-     
 
-      <h3 className={styles.name}>{product.name}</h3>
-      <p className={styles.price}>${product.price}</p>
+        <h3 className={styles.name}>{product.name}</h3>
+        <p className={styles.price}>${product.price}</p>
       </Link>
       <div className={styles.interacciones} onClick={handleAddToCart}>
         <h3 onClick={handleAddToCart}>Añadir al carrito</h3>

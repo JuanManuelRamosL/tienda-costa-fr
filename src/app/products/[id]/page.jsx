@@ -101,17 +101,32 @@ export default function ProductDetail() {
       <Link href="/" className={styles.backLink}>
         &larr; Volver a la tienda
       </Link>
-      <div className={styles.productDetail}>
-        <img src={product.image} alt="" />
-        <h2 className={styles.name}>{product.name}</h2>
-        <p className={styles.description}>{product.description}</p>
-        <p className={styles.price}>${product.price}</p>
-        <button className={styles.buyButton} onClick={handleBuy}>
-          Comprar
-        </button>
-        <button className={styles.removeButton} onClick={handleRemoveProduct}>
-          Eliminar producto
-        </button>
+      <div className={styles.productDetailGeneral}>
+        <div className={styles.containerProduct}>
+          <div className={styles.containerImage}>
+            <img
+              src={product.image}
+              className={styles.image}
+              alt="Imagen del Prodcuto"
+            />
+          </div>
+          <div className={styles.containerDetails}>
+            <h2 className={styles.name}>{product.name}</h2>
+            <p className={styles.description}>{product.description}</p>
+            <p className={styles.price}>${product.price}</p>
+            <div className={styles.containerButtons}>
+              <button className={styles.buyButton} onClick={handleBuy}>
+                Comprar
+              </button>
+              <button
+                className={styles.removeButton}
+                onClick={handleRemoveProduct}
+              >
+                Eliminar producto
+              </button>
+            </div>
+          </div>
+        </div>
 
         {showModal && (
           <div className={styles.modal}>
@@ -163,9 +178,11 @@ export default function ProductDetail() {
                   onChange={handleInputChange}
                 />
               </label>
-              <p>Total: ${product.price * formData.quantity}</p>
-              <button onClick={handleFormSubmit}>Confirmar Compra</button>
-              <button onClick={() => setShowModal(false)}>Cancelar</button>
+              <p className={styles.priceModal}>Total: ${product.price * formData.quantity}</p>
+              <div className={styles.containerButtonsModal}>
+                <button onClick={handleFormSubmit}>Confirmar Compra</button>
+                <button onClick={() => setShowModal(false)}>Cancelar</button>
+              </div>
             </div>
           </div>
         )}
