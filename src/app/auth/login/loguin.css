@@ -24,7 +24,8 @@ input {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #06376c, #161616, #292929, #06376c);
+    /* background: linear-gradient(135deg, #06376c, #161616, #292929, #06376c); */
+    background: rgba(31, 31, 33, 1);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -38,12 +39,15 @@ input {
 }
 
 .login-box {
-    background-color: #fff;
+    background-color: #171616;
+    /* border: 1px solid #fff; */
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    border-top: 2px solid rgba(245, 157, 8, 1);
+    border-bottom: 2px solid rgba(245, 157, 8, 1);
 }
 
 .form-group {
@@ -51,18 +55,27 @@ input {
 }
 
 .form-group label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #000;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
 }
 
 .form-group input {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #fff;
+    border-radius: 17px;
+    background-color: #222222;
     font-size: 1rem;
+    color: #fff;
+}
+
+.form-group input::placeholder {
+    color: #fff;
 }
 
 .submit-button {
@@ -70,23 +83,27 @@ input {
     padding: 0.75rem;
     border: none;
     border-radius: 4px;
-    background-color: #28a745;
+    background-color: rgba(245, 157, 8, 1);
+    box-shadow: 2px 4px 0px rgba(245, 158, 8, 0.681);
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
     margin-bottom: 1rem;
 }
 
 .submit-button:hover {
-    background-color: #218838;
+    transform: scale(1.03);
+    box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
 }
 
 .toggle-register {
+    font-size: 15px;
     background: none;
     border: none;
     color: #007bff;
+    color: #fff;
     cursor: pointer;
     text-align: center;
     margin-bottom: 1rem;
@@ -97,27 +114,25 @@ input {
 }
 
 .google-login-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 1rem;
     font-weight: bold;
+    padding: 10px 15px;
+    border: 2px solid rgba(245, 157, 8, 1);
+    box-shadow: 2px 4px 0px rgba(245, 158, 8, 0.681);
+    background-color: transparent;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    color: rgba(245, 157, 8, 1);
+    color: #fff;
     cursor: pointer;
-    color: #000;
-    transition: background-color 0.3s ease;
+    transition: 0.3s;
 }
 
 .google-login-button:hover {
-    background-color: #f4f4f4;
-}
-
-.google-logo {
-    width: 20px;
-    height: 20px;
-    margin-right: 0.5rem;
+    transform: scale(1.03);
+    box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
 }

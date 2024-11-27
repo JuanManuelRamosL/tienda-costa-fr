@@ -13,7 +13,7 @@ export default function Home() {
   const products = useStore((state) => state.products);
   const setProducts = useStore((state) => state.setProducts);
   const { data: session, status } = useSession();
-  
+
   const [currentPage, setCurrentPage] = useState(0);
   const [gridPage, setGridPage] = useState(0);
   const [filter, setFilter] = useState("todos");
@@ -24,7 +24,9 @@ export default function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("https://tienda-costa-bakend.vercel.app/api/products");
+        const response = await axios.get(
+          "https://tienda-costa-bakend.vercel.app/api/products"
+        );
         setProducts(response.data);
       } catch (error) {
         console.error("Error al obtener los productos:", error);
@@ -37,7 +39,9 @@ export default function Home() {
   // Filtrado solo para el carrusel
   const filteredProducts = products.filter((product) => {
     const matchesCategory = filter === "todos" || product.category === filter;
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -45,10 +49,16 @@ export default function Home() {
   const gridTotalPages = Math.ceil(products.length / gridItemsPerPage); // Productos no filtrados en la tabla
 
   const startIndex = currentPage * itemsPerPage;
-  const currentProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  const currentProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const gridStartIndex = gridPage * gridItemsPerPage;
-  const currentGridProducts = products.slice(gridStartIndex, gridStartIndex + gridItemsPerPage); // Productos no filtrados en la tabla
+  const currentGridProducts = products.slice(
+    gridStartIndex,
+    gridStartIndex + gridItemsPerPage
+  ); // Productos no filtrados en la tabla
 
   const handlePrevious = () => {
     if (currentPage > 0) setCurrentPage(currentPage - 1);
@@ -77,7 +87,6 @@ export default function Home() {
     setCurrentPage(0);
   };
 
-
   return (
     <div>
       <Nav />
@@ -90,21 +99,21 @@ export default function Home() {
           onChange={handleSearchChange}
         />
         <svg
-      width="30px"
-      height="100%"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={styles.icon}
-    >
-      <path
-        d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+          width="30px"
+          height="100%"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={styles.icon}
+        >
+          <path
+            d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
         <select
           className={styles.filtro}
           onChange={handleFilterChange}
@@ -117,23 +126,33 @@ export default function Home() {
       </div>
 
       {/* Carrusel filtrado */}
+      <h2 className={styles.gridTitleUno}>Promociones</h2>
       <div className={styles.containerGrid}>
-        <button onClick={handlePrevious} className={styles.scrollButtonPrev} disabled={currentPage === 0}>
+        <button
+          onClick={handlePrevious}
+          className={styles.scrollButtonPrev}
+          disabled={currentPage === 0}
+        >
           {"<"}
         </button>
         <div className={styles.productGrid}>
           {currentProducts.map((product, index) => (
-
-            <div key={product.id} className={`${styles.productLink} ${styles.slideIn}`}
-            style={{
-              animationDelay: `${index * 0.1}s`,
-            }}>
-             <ProductCard product={product} />
+            <div
+              key={product.id}
+              className={`${styles.productLink} ${styles.slideIn}`}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+              }}
+            >
+              <ProductCard product={product} />
             </div>
-       
           ))}
         </div>
-        <button onClick={handleNext} className={styles.scrollButtonNext} disabled={currentPage === totalPages - 1}>
+        <button
+          onClick={handleNext}
+          className={styles.scrollButtonNext}
+          disabled={currentPage === totalPages - 1}
+        >
           {">"}
         </button>
       </div>
@@ -141,21 +160,51 @@ export default function Home() {
       {/* Tabla de todos los productos sin filtro de búsqueda */}
       <div className={styles.gridContainer}>
         <h2 className={styles.gridTitle}>Todos los Productos</h2>
-        <div className={styles.grid}>
-          {currentGridProducts.map((product) => (
-            <div key={product.id} className={styles.gridCard}>
-              <img src={product.image} alt={product.name} className={styles.productImage} />
-              <h3 className={styles.productName}>{product.name}</h3>
-              <p className={styles.productPrice}>${product.price}</p>
-            </div>
-          ))}
+        <div className={styles.containerGrid}>
+          <button
+            onClick={handlePrevious}
+            className={styles.scrollButtonPrev}
+            disabled={currentPage === 0}
+          >
+            {"<"}
+          </button>
+          <div className={styles.productGrid}>
+            {currentGridProducts.map((product, index) => (
+              <div
+                key={product.id}
+                className={`${styles.productLink} ${styles.slideIn}`}
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={handleNext}
+            className={styles.scrollButtonNext}
+            disabled={currentPage === totalPages - 1}
+          >
+            {">"}
+          </button>
         </div>
         <div className={styles.paginationControls}>
-          <button onClick={handleGridPrevious} disabled={gridPage === 0}>
+          <button
+            onClick={handleGridPrevious}
+            disabled={gridPage === 0}
+            className={styles.buttonsPaginacion}
+          >
             Anterior
           </button>
-          <span>Página {gridPage + 1} de {gridTotalPages}</span>
-          <button onClick={handleGridNext} disabled={gridPage === gridTotalPages - 1}>
+          <span className={styles.spanPaginas}>
+            Página {gridPage + 1} de {gridTotalPages}
+          </span>
+          <button
+            onClick={handleGridNext}
+            disabled={gridPage === gridTotalPages - 1}
+            className={styles.buttonsPaginacion}
+          >
             Siguiente
           </button>
         </div>

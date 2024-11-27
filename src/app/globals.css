@@ -3,7 +3,7 @@ body {
   /* font-family: "Avenir Next", sans-serif; */
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #06376c, #161616, #292929, #06376c);
+  /* background: linear-gradient(135deg, #06376c, #161616, #292929, #06376c); */
   background: rgba(31, 31, 33, 1);
   background-size: cover;
   background-repeat: no-repeat;

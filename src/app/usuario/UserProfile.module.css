@@ -3,53 +3,87 @@
 	flex-direction: column;
 	align-items: center;
 	padding: 20px;
-	background-color: #f0f4f9;
+	background: rgba(31, 31, 33, 1);
 	min-height: 100vh;
-  }
-  
-  .title {
+}
+
+.title {
 	font-size: 2rem;
-	color: #333;
+	color: #fff;
 	margin-bottom: 20px;
-  }
-  
-  .message {
+}
+
+.message {
 	font-size: 1.2rem;
 	color: #666;
-  }
-  
-  .profileCard {
+}
+
+.profileCard {
 	display: flex;
-	align-items: center;
+	flex-direction: column;
+	align-items: start;
 	padding: 20px;
-	background-color: #fff;
+	background-color: #222222;
+	border: 1px solid rgba(245, 157, 8, 1);
+	border: 1px solid #ccc;
 	border-radius: 10px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	width: 100%;
 	max-width: 600px;
-  }
-  
-  .avatar {
+}
+
+.avatar {
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
 	object-fit: cover;
 	margin-right: 20px;
-  }
-  
-  .info {
+}
+
+.info {
 	display: flex;
 	flex-direction: column;
-  }
-  
-  .name {
+}
+
+.name {
 	font-size: 1.5rem;
-	color: #333;
-	margin-bottom: 10px;
-  }
-  
-  .email, .bio {
+	color: #fff;
+	margin-bottom: 0px;
+}
+
+.email,
+.bio {
 	font-size: 1rem;
-	color: #666;
-  }
-  
+	color: #fff;
+}
+
+.containerDatosUser {
+	display: flex;
+}
+
+.containerButtonCerrarSesion {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+}
+
+.buttonCerrarSesion {
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 10px 15px;
+	border: 2px solid rgba(245, 157, 8, 1);
+	box-shadow: 2px 4px 0px rgba(245, 158, 8, 0.681);
+	background-color: transparent;
+	background-color: #1c1c1c;
+	border-radius: 8px;
+	color: rgba(245, 157, 8, 1);
+	color: #fff;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.buttonCerrarSesion:hover {
+	transform: scale(1.03);
+	box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
+}

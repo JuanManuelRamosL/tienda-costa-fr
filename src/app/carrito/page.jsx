@@ -11,13 +11,15 @@ const Carrito = () => {
     removeFromCart(productId);
   };
 
-  const totalPrice = cart.reduce((total, product) => total + Number(product.price), 0);
-
+  const totalPrice = cart.reduce(
+    (total, product) => total + Number(product.price),
+    0
+  );
 
   return (
     <div className={styles.cartContainer}>
       <h2 className={styles.title}>
-        Tu Carrito de Compras{" "}
+        Tu Carrito{" "}
         <svg
           width="35px"
           height="100%"
@@ -36,18 +38,38 @@ const Carrito = () => {
       </h2>
       <div className={styles.cartItems}>
         {cart.length === 0 ? (
-          <p className={styles.emptyCart}>No hay productos en el carrito.</p>
+          <>
+            <div className={styles.containerCarritoVacio}>
+              <p className={styles.emptyCart}>Tu carrito está vacío</p>
+              <Link href="/" className={styles.buttonSeguirCompra}>
+                Seguir comprando
+              </Link>
+            </div>
+            <h3 className={styles.textLink}>
+              Si tienes una cuenta{" "}
+              <Link href="" className={styles.linkLogin}>
+                <u>Inicia Sesión</u>
+              </Link>{" "}
+              para poder finalizar tus compras. <br />O{" "}
+              <Link href="" className={styles.linkLogin}>
+                <u>registrate</u>
+              </Link>{" "}
+              si no tenés una.
+            </h3>
+          </>
         ) : (
           cart.map((product) => (
             <div key={product.id} className={styles.cartItem}>
-              <img
-                src={product.image}
-                alt={product.name}
-                className={styles.image}
-              />
               <div className={styles.info}>
-                <h3 className={styles.name}>{product.name}</h3>
-                <p className={styles.price}>${product.price}</p>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className={styles.image}
+                />
+                <div className={styles.infoProduct}>
+                  <h3 className={styles.name}>{product.name}</h3>
+                  <p className={styles.price}>${product.price}</p>
+                </div>
               </div>
               <div className={styles.containerButtonsCarrito}>
                 <button
@@ -62,10 +84,11 @@ const Carrito = () => {
           ))
         )}
       </div>
-      <div className={styles.total}>
-        <p>
-          Total: <span>${totalPrice}</span>
+      <div className={styles.containerTotal}>
+        <p className={styles.totalText}>
+          Precio Total <span>${totalPrice}</span>
         </p>
+        <button className={styles.buttonComprar}>Pagar Pedido</button>
       </div>
     </div>
   );

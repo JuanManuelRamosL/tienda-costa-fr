@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
         <p className={styles.price}>${product.price}</p>
       </Link>
       <div className={styles.interacciones} onClick={handleAddToCart}>
-        <h3 onClick={handleAddToCart}>Añadir al carrito</h3>
+        <h3 onClick={handleAddToCart} className={styles.textAdd}>Añadir al carrito</h3>
         <svg
           width="35px"
           height="100%"

@@ -43,16 +43,18 @@
 
 .productGrid {
   display: flex;
-  justify-content: center; /* Alineación horizontal de los productos */
-  align-items: flex-start; /* Alineación vertical para evitar el desbordamiento */
-  gap: 20px; /* Espaciado entre los productos */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
   padding: 20px;
-  width: 75%; /* Ajuste dinámico según el tamaño de la pantalla */
+  width: 75%;
   margin: 20px 0;
   background: rgba(255, 255, 255, 0.4);
-  background-color: #b1b1b1;
-  border-radius: 17px;
+  background-color: #141313;
+  border-radius: 7px;
   overflow: hidden;
+  border-top: 1px solid rgba(245, 157, 8, 1);
+  border-bottom: 1px solid rgba(245, 157, 8, 1);
 }
 
 @media screen and (max-width: 1287px) {
@@ -64,9 +66,12 @@
 .productLink {
   text-decoration: none;
   color: inherit;
-  opacity: 0; /* Inicialmente oculto para la animación */
-  transform: translateX(100%); /* Comienza fuera de la pantalla a la derecha */
-  animation: slideInFromRight 0.5s forwards; /* Aplica la animación */
+  opacity: 0;
+  /* Inicialmente oculto para la animación */
+  transform: translateX(100%);
+  /* Comienza fuera de la pantalla a la derecha */
+  animation: slideInFromRight 0.5s forwards;
+  /* Aplica la animación */
 }
 
 @keyframes slideInFromRight {
@@ -74,6 +79,7 @@
     transform: translateX(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -90,27 +96,37 @@
 }
 
 .buscador {
+  font-size: 15px;
+  font-weight: bold;
   width: 30%;
   height: 35px;
   outline: none;
-  border: none;
+  border: 1px solid #fff;
   border-radius: 17px;
+  background-color: #222222;
+  color: #fff;
 }
 
-.buscador:placeholder {
-  color: #000;
+.buscador::placeholder {
+  color: #fff;
 }
 
 .filtro {
+  font-size: 15px;
+  font-weight: bold;
   height: 35px;
   cursor: pointer;
-  border-radius: 7px;
   outline: none;
+  border: 1px solid #fff;
+  border-radius: 7px;
+  background-color: #222222;
+  color: #fff;
 }
 
 .icon {
   position: relative;
   left: -60px;
+  color: #fff;
 }
 
 
@@ -120,10 +136,20 @@
 }
 
 .gridTitle {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #fff;
+  width: 78%;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 2.4rem;
+  color: rgba(245, 157, 8, 1);
+}
+
+.gridTitleUno {
+  width: 78%;
+  margin: 0 auto;
+  margin-top: 50px;
+  text-align: left;
+  font-size: 2.4rem;
+  color: rgba(245, 157, 8, 1);
 }
 
 .grid {
@@ -181,4 +207,20 @@
 .paginationControls button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.buttonsPaginacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  width: 100px;
+  height: 30px;
+  color: #000;
+}
+
+.spanPaginas {
+  font-size: 17px;
+  font-weight: bold;
+  color: rgba(245, 157, 8, 1);
 }

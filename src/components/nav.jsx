@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 export default function Nav() {
   const { data: session } = useSession();
   const setUser = useStore((state) => state.setUser);
-  const clearUser = useStore((state) => state.clearUser);
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const clearUser = useStore((state) => state.clearUser);
 
   useEffect(() => {
     if (session?.user) {
