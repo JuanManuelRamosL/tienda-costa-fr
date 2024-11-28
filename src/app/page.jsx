@@ -8,6 +8,7 @@ import Nav from "@/components/nav";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ProductCardTotal from "@/components/productCardTotal";
 
 export default function Home() {
   const products = useStore((state) => state.products);
@@ -125,8 +126,8 @@ export default function Home() {
         </select>
       </div>
 
-      {/* Carrusel filtrado */}
-      <h2 className={styles.gridTitleUno}>Promociones</h2>
+      {/* Carrusel de productos */}
+      <h2 className={styles.gridTitle}>Promociones</h2>
       <div className={styles.containerGrid}>
         <button
           onClick={handlePrevious}
@@ -157,57 +158,22 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Tabla de todos los productos sin filtro de búsqueda */}
-      <div className={styles.gridContainer}>
-        <h2 className={styles.gridTitle}>Todos los Productos</h2>
-        <div className={styles.containerGrid}>
-          <button
-            onClick={handlePrevious}
-            className={styles.scrollButtonPrev}
-            disabled={currentPage === 0}
-          >
-            {"<"}
-          </button>
-          <div className={styles.productGrid}>
-            {currentGridProducts.map((product, index) => (
-              <div
-                key={product.id}
-                className={`${styles.productLink} ${styles.slideIn}`}
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
+      <div className={styles.gridContainerResponsive}>
+        {filteredProducts.map((product) => (
+          <div key={product.id} className={styles.productItem}>
+            <ProductCard product={product} />
           </div>
-          <button
-            onClick={handleNext}
-            className={styles.scrollButtonNext}
-            disabled={currentPage === totalPages - 1}
-          >
-            {">"}
-          </button>
-        </div>
-        <div className={styles.paginationControls}>
-          <button
-            onClick={handleGridPrevious}
-            disabled={gridPage === 0}
-            className={styles.buttonsPaginacion}
-          >
-            Anterior
-          </button>
-          <span className={styles.spanPaginas}>
-            Página {gridPage + 1} de {gridTotalPages}
-          </span>
-          <button
-            onClick={handleGridNext}
-            disabled={gridPage === gridTotalPages - 1}
-            className={styles.buttonsPaginacion}
-          >
-            Siguiente
-          </button>
-        </div>
+        ))}
+      </div>
+
+      {/* Grilla de todos los productos */}
+      <h2 className={styles.gridTitleDos}>Todos los Productos</h2>
+      <div className={styles.gridContainer}>
+        {filteredProducts.map((product) => (
+          <div key={product.id} className={styles.productItem}>
+            <ProductCardTotal product={product} />
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -42,24 +42,41 @@
 }
 
 .productGrid {
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 20px;
   padding: 20px;
-  width: 75%;
-  margin: 20px 0;
-  background: rgba(255, 255, 255, 0.4);
-  background-color: #141313;
+  gap: 20px;
   border-radius: 7px;
-  overflow: hidden;
   border-top: 1px solid rgba(245, 157, 8, 1);
   border-bottom: 1px solid rgba(245, 157, 8, 1);
+  background-color: #141313;
+  overflow: hidden;
 }
 
-@media screen and (max-width: 1287px) {
-  .productGrid {
+.gridContainerResponsive {
+  display: none;
+}
+
+@media screen and (max-width: 963px) {
+  .containerGrid {
+    display: none;
+  }
+
+  .gridContainerResponsive {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
+    gap: 40px;
+    padding: 20px;
+    margin: 1rem auto;
+    border-radius: 7px;
+    border-top: 1px solid rgba(245, 157, 8, 1);
+    border-bottom: 1px solid rgba(245, 157, 8, 1);
+    background-color: #141313;
   }
 }
 
@@ -92,7 +109,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .buscador {
@@ -125,26 +142,35 @@
 
 .icon {
   position: relative;
-  left: -60px;
+  left: -40px;
   color: #fff;
 }
 
+@media screen and (max-width: 560px) {
+  .icon {
+    display: none;
+  }
 
-.gridContainer {
-  margin-top: 2rem;
-  padding: 1rem;
+  .containerBuscador {
+    gap: 20px;
+  }
+
+  .buscador {
+    width: 50%;
+  }
 }
 
 .gridTitle {
-  width: 78%;
+  width: 92%;
   margin: 0 auto;
   text-align: left;
   font-size: 2.4rem;
   color: rgba(245, 157, 8, 1);
 }
 
-.gridTitleUno {
-  width: 78%;
+
+.gridTitleDos {
+  width: 92%;
   margin: 0 auto;
   margin-top: 50px;
   text-align: left;
@@ -223,4 +249,72 @@
   font-size: 17px;
   font-weight: bold;
   color: rgba(245, 157, 8, 1);
+}
+
+.gridContainer {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 7px;
+  background-color: #141313;
+  border-top: 1px solid rgba(245, 157, 8, 1);
+  border-bottom: 1px solid rgba(245, 157, 8, 1);
+}
+
+.productGrid {
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  /* Para mantener las tarjetas alineadas a la izquierda */
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 7px;
+  border-top: 1px solid rgba(245, 157, 8, 1);
+  border-bottom: 1px solid rgba(245, 157, 8, 1);
+  background-color: #141313;
+  overflow: hidden;
+}
+
+.productLink {
+  flex: 1 1 calc(25% - 20px);
+  /* 25% del ancho menos el gap */
+  max-width: calc(25% - 20px);
+  /* Límite máximo del ancho */
+  box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideInFromRight 0.5s forwards;
+}
+
+/* Para tamaños de pantalla más pequeños */
+@media (max-width: 1024px) {
+  .productLink {
+    flex: 1 1 calc(33.33% - 20px);
+    /* 3 tarjetas por fila */
+    max-width: calc(33.33% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .productLink {
+    flex: 1 1 calc(50% - 20px);
+    /* 2 tarjetas por fila */
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .productLink {
+    flex: 1 1 calc(100% - 20px);
+    /* 1 tarjeta por fila */
+    max-width: calc(100% - 20px);
+  }
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import "./Nav.css";
-
 import useStore from "../../store";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -21,16 +20,39 @@ export default function Nav() {
     }
   }, [session, setUser, clearUser]);
 
+  const toggleMenu = () => setMenuOpen(!isMenuOpen);
+
   return (
     <header className="header">
       <nav className="nav">
-        <div className="nav-links">
+        <button className="menu-toggle" onClick={toggleMenu}>
+          ☰
+        </button>
+        <div className={`nav-links ${isMenuOpen ? "active" : ""}`}>
           <Link href="" className="links">
             Productos
           </Link>
           <Link href="" className="links">
             Métodos de Pago
           </Link>
+          {session?.user ? (
+            <div className="mobile-user-section">
+              <Link href="/usuario">
+                <img
+                  src={session.user.image}
+                  alt="User Image"
+                  className="user-avatar"
+                />
+              </Link>
+              <button onClick={() => signOut()} className="logout-btn">
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => signIn()} className="login-btn">
+              Iniciar Sesión
+            </button>
+          )}
         </div>
         <Link href="/carrito">
           <svg
@@ -49,49 +71,7 @@ export default function Nav() {
             />
           </svg>
         </Link>
-        <div className="user-section">
-          {session?.user ? (
-            <div className="user-info">
-              <Link href="/usuario">
-                <img
-                  src={session.user.image}
-                  alt="User Image"
-                  className="user-avatar"
-                />
-              </Link>
-              <button onClick={() => signOut()} className="logout-btn">
-                Cerrar Sesión
-              </button>
-            </div>
-          ) : (
-            <button onClick={() => signIn()} className="login-btn">
-              Iniciar Sesión
-            </button>
-          )}
-        </div>
       </nav>
     </header>
-
-    // {/* User Section in Mobile Menu */}
-    //     {session?.user ? (
-    //       <div className="mobile-user-section">
-    //         <Link href="/usuario">
-    //           <img
-    //             src={session.user.image}
-    //             alt="User Image"
-    //             className="user-avatar"
-    //           />
-    //         </Link>
-    //         <button onClick={() => signOut()} className="logout-btn">
-    //           Logout
-    //         </button>
-    //       </div>
-    //     ) : (
-    //       <button onClick={() => signIn()} className="login-btn">
-    //         Login
-    //       </button>
-    //     )}
-    //   </div>
-    // )}
   );
 }

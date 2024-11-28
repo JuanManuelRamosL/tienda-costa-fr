@@ -63,8 +63,11 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	flex-direction: column;
+	gap: 40px;
 	padding: 20px;
 	background-color: #141313;
+	border-top: 2px solid rgba(245, 157, 8, 1);
 	border-bottom: 2px solid rgba(245, 157, 8, 1);
 	border-top-left-radius: 7px;
 	border-top-right-radius: 7px;
@@ -74,6 +77,8 @@
 .cartItem {
 	width: 100%;
 	display: flex;
+	padding: 8px;
+	border-bottom: 1px solid rgba(245, 157, 8, 1);
 }
 
 .info {
@@ -146,6 +151,7 @@
 	width: 82%;
 	text-align: end;
 	margin-top: 1.2rem;
+	margin-bottom: 1.2rem;
 }
 
 .totalText {
