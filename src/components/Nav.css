@@ -105,63 +105,16 @@ svg {
 	box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
 }
 
-.menu-toggle {
-	display: none;
-	font-size: 2rem;
-	background: none;
-	border: none;
-	color: white;
-	cursor: pointer;
-	margin-left: 15px;
-}
-
-.nav-links {
-	display: flex;
-	gap: 1.5rem;
-	justify-content: center;
-	align-items: center;
-	flex-grow: 1;
-}
-
-.nav-links.active {
-	position: relative;
-	top: 0;
-	/* left: -7%; */
-	margin: 0 auto;
-	width: 95%;
-	height: 50vh;
-	border-radius: 7px;
-	border: 2px solid rgba(245, 157, 8, 1);
-	background: rgba(31, 31, 33, 1);
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 2rem;
-	z-index: 1000;
-	transform: translateY(70%);
-	transition: transform 0.3s ease-in-out;
-
-}
-
-@media (max-width: 532px) {
-	.menu-toggle {
-		display: block;
-	}
-
-	.nav-links {
-		display: none;
-		transform: translateY(-100%);
-	}
-
-	.nav-links.active {
+@media screen and (max-width: 325px) {
+	.login-btn {
 		display: flex;
+		align-items: center;
+		width: 80px;
+		height: 40px;
+		font-size: 12px;
 	}
-}
 
-@media screen and (max-width: 320px) {
-	.nav-links.active {
-		width: 280px;
+	.svg {
+		width: 30px;
 	}
 }

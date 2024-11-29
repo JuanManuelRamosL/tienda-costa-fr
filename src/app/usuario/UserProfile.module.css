@@ -87,3 +87,34 @@
 	transform: scale(1.03);
 	box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
 }
+
+.subtitle {
+	font-size: 20px;
+	margin-top: 30px;
+  }
+  
+  .purchases {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+  }
+  
+  .purchaseCard {
+	background: #444;
+	padding: 15px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+  }
+  
+  .purchaseImage {
+	width: 100px;
+	height: 100px;
+	margin-bottom: 10px;
+  }
+  
+  .purchaseInfo {
+	color: #ddd;
+  }

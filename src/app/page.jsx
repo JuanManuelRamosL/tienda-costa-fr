@@ -90,7 +90,7 @@ export default function Home() {
 
   return (
     <div>
-      <Nav />
+      {/* <Nav /> */}
       <div className={styles.containerBuscador}>
         <input
           type="text"

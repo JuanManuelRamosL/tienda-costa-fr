@@ -4,6 +4,20 @@ const useStore = create((set) => ({
   products: [],
   user: null,
   cart: [],
+  purchases: [
+    {
+      name: "Remera Deportiva",
+      price: 2000,
+      shippingStatus: "Enviado",
+      image: "https://http2.mlstatic.com/D_NQ_NP_649628-MLA50912086610_072022-O.webp",
+    },
+    {
+      name: "Creatina ENA",
+      price: 31000,
+      shippingStatus: "En camino",
+      image: "https://http2.mlstatic.com/D_NQ_NP_2X_882636-MLU75591903237_042024-F.webp",
+    },
+  ],
   setProducts: (products) => set({ products }), // Función para establecer los productos
   addProduct: (product) => set((state) => ({ 
     products: [...state.products, product] 

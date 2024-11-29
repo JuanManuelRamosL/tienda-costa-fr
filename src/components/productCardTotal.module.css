@@ -123,3 +123,65 @@
 		opacity: 0;
 	}
 }
+
+.interaccionesResponsive {
+	display: none;
+}
+
+@media screen and (max-width: 400px) {
+	.card {
+		width: 210px;
+	}
+
+	.interacciones {
+		width: 80%;
+		height: 60px;
+	}
+}
+
+@media screen and (max-width: 300px) {
+	.card {
+		width: 180px;
+	}
+}
+
+@media screen and (max-width: 240px) {
+	.card {
+		width: 100px;
+		height: auto;
+	}
+
+	.image {
+		width: 80%;
+		height: 100%;
+	}
+
+	.interacciones {
+		display: none;
+		margin-top: 1rem;
+	}
+
+	.interaccionesResponsive {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: none;
+		color: #fff;
+		cursor: pointer;
+		transition: 0.3s;
+		background-color: transparent;
+		margin-top: 0.5rem;
+	}
+
+	.containerDetallesProducto {
+		font-size: 15px;
+	}
+
+	.name {
+		font-size: 15px;
+	}
+
+	.price {
+		font-size: 19px;
+	}
+}

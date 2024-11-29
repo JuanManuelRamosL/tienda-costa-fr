@@ -118,7 +118,7 @@
   width: 30%;
   height: 35px;
   outline: none;
-  border: 1px solid #fff;
+  border: 1px solid rgba(245, 157, 8, 1);
   border-radius: 17px;
   background-color: #222222;
   color: #fff;
@@ -134,7 +134,7 @@
   height: 35px;
   cursor: pointer;
   outline: none;
-  border: 1px solid #fff;
+  border: 1px solid rgba(245, 157, 8, 1);
   border-radius: 7px;
   background-color: #222222;
   color: #fff;
@@ -270,7 +270,6 @@
   width: 90%;
   display: flex;
   justify-content: flex-start;
-  /* Para mantener las tarjetas alineadas a la izquierda */
   align-items: center;
   padding: 20px;
   gap: 20px;
