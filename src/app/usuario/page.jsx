@@ -15,7 +15,9 @@ export default function UserProfile() {
   useEffect(() => {
     if (session?.user) {
       setUser(session.user);
-    } else {
+    } else if(user){
+console.log("ususario de form")
+    } else{
       clearUser();
     }
   }, [session, setUser, clearUser]);
@@ -35,7 +37,7 @@ export default function UserProfile() {
       <div className={styles.profileCard}>
         <div className={styles.containerDatosUser}>
           <img
-            src={user.image || "/default-avatar.png"}
+            src={user.image || "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"}
             alt="Avatar"
             className={styles.avatar}
           />

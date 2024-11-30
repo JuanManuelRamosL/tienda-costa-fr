@@ -18,7 +18,7 @@ export default function ProductDetail() {
   const removeProduct = useStore((state) => state.removeProduct);
   const user = useStore((state) => state.user);
   const { data: session, status } = useSession();
-
+console.log(user)
   const product = products.find((p) => p.id === productId);
 
   const [showModal, setShowModal] = useState(false);

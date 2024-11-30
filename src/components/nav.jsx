@@ -1,25 +1,45 @@
 "use client";
 
-import "./Nav.css";
-
-import useStore from "../../store";
+import React, { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import axios from "axios";
+import useStore from "../../store";
+import "./Nav.css";
 
 export default function Nav() {
   const { data: session } = useSession();
   const setUser = useStore((state) => state.setUser);
-  const [isMenuOpen, setMenuOpen] = useState(false);
+  const user = useStore((state) => state.user);
   const clearUser = useStore((state) => state.clearUser);
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
       setUser(session.user);
+      createUserOnBackend(session.user); // Llama a la función para enviar los datos al backend
     } else {
       clearUser();
     }
   }, [session, setUser, clearUser]);
+
+  const createUserOnBackend = async (user) => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/createUser", {
+        name: user.name,
+        email: user.email,
+        password: "defaultPassword", // Puedes definir un valor por defecto o generarlo automáticamente
+        photo: user.image,
+      });
+      console.log("Usuario creado exitosamente:", response.data);
+    } catch (error) {
+      console.error("Error al crear el usuario:", error.response?.data || error.message);
+    }
+  };
+
+  const signOutStore = () => {
+    setUser(null);
+  };
 
   return (
     <header className="header">
@@ -61,6 +81,19 @@ export default function Nav() {
                 Cerrar Sesión
               </button>
             </div>
+          ) : user ? (
+            <div className="user-info">
+              <Link href="/usuario">
+                <img
+                  src="https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg"
+                  alt="User Image"
+                  className="user-avatar"
+                />
+              </Link>
+              <button onClick={() => signOutStore()} className="logout-btn">
+                Cerrar Sesión
+              </button>
+            </div>
           ) : (
             <button onClick={() => signIn()} className="login-btn">
               Iniciar Sesión
@@ -69,6 +102,9 @@ export default function Nav() {
         </div>
       </nav>
     </header>
+  );
+}
+
 
     // {/* User Section in Mobile Menu */}
     //     {session?.user ? (
@@ -91,5 +127,4 @@ export default function Nav() {
     //     )}
     //   </div>
     // )}
-  );
-}
+  

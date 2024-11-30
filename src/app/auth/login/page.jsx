@@ -15,6 +15,8 @@ export default function LoginPage() {
   const { data: session, status } = useSession();
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     if (status === "authenticated" && session) {
@@ -27,13 +29,13 @@ export default function LoginPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("ruta de deploy register pendiente", {
-        username,
+      const response = await axios.post("http://localhost:3000/api/users", {
+        name:username,
         email,
         password,
       });
-
-      if (response.status === 200) {
+console.log(response)
+      if (response.status === 201) {
         setUser(response.data); // Guarda los datos del usuario en el estado global
         router.push("/"); // Redirige al dashboard u otra página
       } else {
@@ -44,19 +46,33 @@ export default function LoginPage() {
     }
   };
 
+  
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    setError("");
+    setSuccess("");
 
-    if (res.ok) {
-      setUser({ username, email }); // Guarda los datos en el estado global
-      router.push("/dashboard"); // Redirige a otra página
-    } else {
-      console.log("Error en el login");
+    try {
+      const response = await axios.post("http://localhost:3000/api/login", {
+        email,
+        password,
+      });
+
+      // Si el login es exitoso
+      setSuccess("Login exitoso");
+      console.log("Usuario:", response.data.user); 
+      if (response.status === 200) {
+        setUser(response.data.user); // Guarda los datos del usuario en el estado global
+        router.push("/");
+      }
+    } catch (err) {
+      // Manejo de errores
+      if (err.response && err.response.data) {
+        setError(err.response.data.error || "Error al iniciar sesión");
+      } else {
+        setError("Error al conectar con el servidor");
+      }
     }
   };
 
@@ -182,6 +198,8 @@ export default function LoginPage() {
           </svg>
           Iniciar sesión con Google
         </button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {success && <p style={{ color: "green" }}>{success}</p>}
       </div>
     </div>
   );
