@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../../../store"; // Estado global
 import styles from "./UserProfile.module.css"; // Estilos de la página
 import { signOut, useSession } from "next-auth/react";
@@ -12,15 +12,54 @@ export default function UserProfile() {
   const setUser = useStore((state) => state.setUser);
   const clearUser = useStore((state) => state.clearUser);
 
+  const [userDetails, setUserDetails] = useState(null);
+  const [userOrders, setUserOrders] = useState(null);
+  
   useEffect(() => {
     if (session?.user) {
       setUser(session.user);
-    } else if(user){
-console.log("ususario de form")
-    } else{
+    } else if (user) {
+      console.log("Usuario de forma local");
+    } else {
       clearUser();
     }
-  }, [session, setUser, clearUser]);
+  }, [session, setUser, clearUser, user]);
+
+  useEffect(() => {
+    const fetchUserDetails = async (email) => {
+      try {
+        const response = await fetch(`https://tienda-costa-bakend.vercel.app/api/users/email/${email}`);
+        const data = await response.json();
+        if (response.ok) {
+          setUserDetails(data); // Guarda los detalles del usuario
+          fetchUserOrders(data.id); // Hace la solicitud para los pedidos usando el id
+        } else {
+          console.error(data.error);
+        }
+      } catch (error) {
+        console.error("Error al obtener los detalles del usuario:", error);
+      }
+    };
+
+    const fetchUserOrders = async (userId) => {
+      try {
+        const response = await fetch(`https://tienda-costa-bakend.vercel.app/api/pedidos/${userId}`);
+        const data = await response.json();
+        if (response.ok) {
+          setUserOrders(data); // Guarda los pedidos del usuario
+        } else {
+          console.error(data.error);
+        }
+      } catch (error) {
+        console.error("Error al obtener los pedidos del usuario:", error);
+      }
+    };
+
+    if (user?.email) {
+      console.log(user)
+      fetchUserDetails(user.email); // Llama a la función para obtener el usuario
+    }
+  }, [user]);
 
   if (!user) {
     return (
@@ -30,7 +69,7 @@ console.log("ususario de form")
       </div>
     );
   }
-
+console.log(userOrders)
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Perfil de Usuario</h1>
@@ -60,6 +99,8 @@ console.log("ususario de form")
         </div>
       </div>
 
+  
+
       {/* Lista de Compras */}
       <h2 className={styles.subtitle}>Tus Compras</h2>
       <div className={styles.purchases}>
@@ -82,6 +123,22 @@ console.log("ususario de form")
           <p className={styles.message}>Aún no has realizado compras.</p>
         )}
       </div>
+
+      {/* Lista de Pedidos */}
+      {userOrders && userOrders.length > 0 ? (
+        <div className={styles.orders}>
+          <h2 className={styles.subtitle}>Tus Pedidos</h2>
+          {userOrders.map((order, index) => (
+            <div key={index} className={styles.orderCard}>
+              <h3>{order.producto}</h3>
+              <p>Estado: {order.estado}</p>
+              <p>Precio: ${order.precio}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className={styles.message}>No tienes pedidos aún.</p>
+      )}
     </div>
   );
 }
