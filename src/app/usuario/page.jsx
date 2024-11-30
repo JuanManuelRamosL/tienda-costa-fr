@@ -101,28 +101,8 @@ console.log(userOrders)
 
   
 
-      {/* Lista de Compras */}
-      <h2 className={styles.subtitle}>Tus Compras</h2>
-      <div className={styles.purchases}>
-        {purchases && purchases.length > 0 ? (
-          purchases.map((purchase, index) => (
-            <div key={index} className={styles.purchaseCard}>
-              <img
-                src={purchase.image || "/placeholder.png"}
-                alt={purchase.name}
-                className={styles.purchaseImage}
-              />
-              <div className={styles.purchaseInfo}>
-                <h3>{purchase.name}</h3>
-                <p>Precio: ${purchase.price}</p>
-                <p>Estado del Envío: {purchase.shippingStatus}</p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className={styles.message}>Aún no has realizado compras.</p>
-        )}
-      </div>
+    
+      
 
       {/* Lista de Pedidos */}
       {userOrders && userOrders.length > 0 ? (
@@ -131,8 +111,13 @@ console.log(userOrders)
           {userOrders.map((order, index) => (
             <div key={index} className={styles.orderCard}>
               <h3>{order.producto}</h3>
-              <p>Estado: {order.estado}</p>
-              <p>Precio: ${order.precio}</p>
+{
+  order.estado == null ? (
+    <p>Estado : Recibido</p>
+  ): <p>Estado: {order.estado}</p>
+}
+              <p>Cantidad: {order.cantidad}</p>
+              <p>Direccion de envio: {order.direccion}</p>
             </div>
           ))}
         </div>

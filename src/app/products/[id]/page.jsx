@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import useStore from "../../../../store";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductDetail() {
   const { addToCart } = useStore();
@@ -18,6 +18,7 @@ export default function ProductDetail() {
   const removeProduct = useStore((state) => state.removeProduct);
   const user = useStore((state) => state.user);
   const { data: session, status } = useSession();
+  const [userDetails, setUserDetails] = useState(null);
 console.log(user)
   const product = products.find((p) => p.id === productId);
 
@@ -63,6 +64,7 @@ console.log(user)
       nombre: formData.nombre,
       email: formData.email,
       telefono: formData.telefono,
+      userId:userDetails.id
     });
 
     try {
@@ -82,6 +84,7 @@ console.log(user)
             nombre: formData.nombre,
             email: formData.email,
             telefono: formData.telefono,
+            userId:userDetails.id
           }),
         }
       );
@@ -111,6 +114,29 @@ console.log(user)
     setFav(true);
   };
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (user?.email) {
+      fetchUserByEmail(user.email);
+    }
+  }, [user]);
+
+  const fetchUserByEmail = async (email) => {
+    try {
+      const response = await fetch(
+        `https://tienda-costa-bakend.vercel.app/api/users/email/${email}`
+      );
+      if (!response.ok) {
+        throw new Error("Usuario no encontrado o error en la solicitud");
+      }
+      const data = await response.json();
+      setUserDetails(data);
+    } catch (err) {
+      console.error("Error al obtener el usuario:", err);
+      setError(err.message);
+    }
+  };
+console.log(userDetails)
   return (
     <>
      {/*  <Link href="/" className={styles.backLink}>

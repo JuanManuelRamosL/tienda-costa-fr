@@ -118,3 +118,99 @@
   .purchaseInfo {
 	color: #ddd;
   }
+
+  
+  .title {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #ffffff;
+	text-align: center;
+	margin-bottom: 20px;
+  }
+  
+  .profileCard {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+  }
+  
+  .containerDatosUser {
+	display: flex;
+	align-items: center;
+  }
+  
+  .avatar {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin-right: 15px;
+	border: 2px solid #ddd;
+  }
+  
+  .info {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .name {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #ffffff;
+  }
+  
+  .email {
+	font-size: 1rem;
+	color: #ffffff;
+  }
+  
+  .containerButtonCerrarSesion {
+	display: flex;
+	align-items: center;
+  }
+  
+
+  
+  .orders {
+	margin-top: 30px;
+  }
+  
+  .subtitle {
+	font-size: 1.8rem;
+	color: #ffffff;
+	margin-bottom: 20px;
+	text-align: center;
+  }
+  
+  .orderCard {
+	
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+	margin-bottom: 15px;
+	border-left: 4px solid #4caf50; /* Indicador de estado */
+  }
+  
+  .orderCard h3 {
+	font-size: 1.2rem;
+	color: #ffffff;
+	margin-bottom: 10px;
+  }
+  
+  .orderCard p {
+	font-size: 1rem;
+	color: #ffffff;
+	margin: 5px 0;
+  }
+  
+  .message {
+	font-size: 1.2rem;
+	color: #ffffff;
+	text-align: center;
+	margin-top: 20px;
+  }
+  
