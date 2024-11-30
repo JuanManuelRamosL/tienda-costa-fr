@@ -113,9 +113,9 @@ console.log(user)
 
   return (
     <>
-      <Link href="/" className={styles.backLink}>
-        &larr; Volver a la tienda
-      </Link>
+     {/*  <Link href="/" className={styles.backLink}>
+        &larr; Volver a la tienda 
+      </Link> */}
       <div className={styles.productDetailGeneral}>
         <div className={styles.containerProduct}>
           <div className={styles.containerImageAndDetail}>
