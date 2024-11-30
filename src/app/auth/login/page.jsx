@@ -29,7 +29,7 @@ export default function LoginPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/users", {
+      const response = await axios.post("https://tienda-costa-bakend.vercel.app/api/users", {
         name:username,
         email,
         password,
@@ -54,7 +54,7 @@ console.log(response)
     setSuccess("");
 
     try {
-      const response = await axios.post("http://localhost:3000/api/login", {
+      const response = await axios.post("https://tienda-costa-bakend.vercel.app/api/login", {
         email,
         password,
       });

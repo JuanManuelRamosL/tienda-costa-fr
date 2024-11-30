@@ -25,7 +25,7 @@ export default function Nav() {
 
   const createUserOnBackend = async (user) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/createUser", {
+      const response = await axios.post("https://tienda-costa-bakend.vercel.app/api/createUser", {
         name: user.name,
         email: user.email,
         password: "defaultPassword", // Puedes definir un valor por defecto o generarlo automáticamente
