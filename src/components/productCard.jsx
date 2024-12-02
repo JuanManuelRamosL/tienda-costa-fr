@@ -21,6 +21,9 @@ export default function ProductCard({ product }) {
     setFav(true);
   };
 
+  const truncateName = (name) =>
+    name.length > 20 ? `${name.slice(0, 20)}...Ver más` : name;
+
   return (
     <div className={styles.card}>
       <Link href={`/products/${product.id}`}>
@@ -28,18 +31,18 @@ export default function ProductCard({ product }) {
           <img src={product.image} alt="" className={styles.image} />
         </div>
         <div className={styles.containerDetallesProducto}>
-          <h3 className={styles.name}>{product.name}</h3>
+          <h3 className={styles.name}>{truncateName(product.name)}</h3>
           <p className={styles.price}>${product.price}</p>
         </div>
       </Link>
-      <div className={styles.containerGeneralButtons}>
-        <div className={styles.containerButtonInteracciones}>
-          {fav ? (
-            <button className={styles.interacciones} onClick={handleAddToCart}>
-              <h3 onClick={handleAddToCart} className={styles.textAdd}>
-                Añadir al carrito
-              </h3>
-              <svg
+
+      <div className={styles.containerButtonCard}>
+        {fav ? (
+          <button className={styles.interacciones} onClick={handleAddToCart}>
+            <h3 onClick={handleAddToCart} className={styles.textAdd}>
+              Añadir al carrito
+            </h3>
+            {/* <svg
                 width="35px"
                 height="100%"
                 viewBox="0 0 24 24"
@@ -53,20 +56,20 @@ export default function ProductCard({ product }) {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
-            </button>
-          ) : (
-            <button
-              className={styles.interaccionesDelete}
+              </svg> */}
+          </button>
+        ) : (
+          <button
+            className={styles.interaccionesDelete}
+            onClick={() => handleRemoveFromCart(product.id)}
+          >
+            <h3
               onClick={() => handleRemoveFromCart(product.id)}
+              className={styles.textAdd}
             >
-              <h3
-                onClick={() => handleRemoveFromCart(product.id)}
-                className={styles.textAdd}
-              >
-                Eliminar del carrito
-              </h3>
-              <svg
+              Eliminar del carrito
+            </h3>
+            {/* <svg
                 width="35px"
                 height="100%"
                 viewBox="0 0 24 24"
@@ -80,10 +83,9 @@ export default function ProductCard({ product }) {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-              </svg>
-            </button>
-          )}
-        </div>
+              </svg> */}
+          </button>
+        )}
       </div>
 
       {showNotification && (

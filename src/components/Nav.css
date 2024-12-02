@@ -13,6 +13,11 @@ svg {
 	margin-right: 10px;
 	cursor: pointer;
 	color: #fff;
+	transition: 0.3s;
+}
+
+svg:hover {
+	color: rgba(245, 157, 8, 1);
 }
 
 .header {
@@ -38,12 +43,19 @@ svg {
 	margin-left: 50px;
 }
 
-.nav-links a {
+.links {
+	display: flex;
+	align-items: end;
 	font-family: "Avenir Next", sans-serif;
-	font-size: 19px;
+	font-size: 21px;
 	font-weight: 700;
 	text-decoration: none;
 	color: #fff;
+	transition: 0.3s;
+}
+
+.links:hover {
+	color: rgba(245, 157, 8, 1);
 }
 
 .user-section {

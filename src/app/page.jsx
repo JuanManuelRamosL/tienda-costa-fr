@@ -1,29 +1,28 @@
 "use client";
 
-import Link from "next/link";
-import ProductCard from "../components/productCard";
-import styles from "./page.module.css";
-import useStore from "../../store";
-import Nav from "@/components/nav";
-import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import useStore from "../../store";
+import ProductCard from "../components/productCard";
 import ProductCardTotal from "@/components/productCardTotal";
+import styles from "./page.module.css";
 
 export default function Home() {
   const products = useStore((state) => state.products);
   const setProducts = useStore((state) => state.setProducts);
-  const { data: session, status } = useSession();
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [gridPage, setGridPage] = useState(0);
+  const [allProductsPage, setAllProductsPage] = useState(0);
   const [filter, setFilter] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const itemsPerPage = 4;
-  const gridItemsPerPage = 3;
+  const allProductsPerPage = 5;
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           "https://tienda-costa-bakend.vercel.app/api/products"
@@ -31,13 +30,14 @@ export default function Home() {
         setProducts(response.data);
       } catch (error) {
         console.error("Error al obtener los productos:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, [setProducts]);
 
-  // Filtrado solo para el carrusel
   const filteredProducts = products.filter((product) => {
     const matchesCategory = filter === "todos" || product.category === filter;
     const matchesSearch = product.name
@@ -47,77 +47,38 @@ export default function Home() {
   });
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  const gridTotalPages = Math.ceil(products.length / gridItemsPerPage); // Productos no filtrados en la tabla
-
   const startIndex = currentPage * itemsPerPage;
   const currentProducts = filteredProducts.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
-  const gridStartIndex = gridPage * gridItemsPerPage;
-  const currentGridProducts = products.slice(
-    gridStartIndex,
-    gridStartIndex + gridItemsPerPage
-  ); // Productos no filtrados en la tabla
-
-  const handlePrevious = () => {
-    if (currentPage > 0) setCurrentPage(currentPage - 1);
-  };
-
-  const handleNext = () => {
-    if (currentPage < totalPages - 1) setCurrentPage(currentPage + 1);
-    else setCurrentPage(0);
-  };
-
-  const handleGridPrevious = () => {
-    if (gridPage > 0) setGridPage(gridPage - 1);
-  };
-
-  const handleGridNext = () => {
-    if (gridPage < gridTotalPages - 1) setGridPage(gridPage + 1);
-  };
-
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-    setCurrentPage(0);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(0);
-  };
+  const allProductsTotalPages = Math.ceil(
+    filteredProducts.length / allProductsPerPage
+  );
+  const allProductsStartIndex = allProductsPage * allProductsPerPage;
+  const currentAllProducts = filteredProducts.slice(
+    allProductsStartIndex,
+    allProductsStartIndex + allProductsPerPage
+  );
 
   return (
     <div>
-      {/* <Nav /> */}
       <div className={styles.containerBuscador}>
         <input
           type="text"
           placeholder="Buscar producto"
           className={styles.buscador}
           value={searchTerm}
-          onChange={handleSearchChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <svg
-          width="30px"
-          height="100%"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={styles.icon}
-        >
-          <path
-            d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
         <select
           className={styles.filtro}
-          onChange={handleFilterChange}
+          onChange={(e) => {
+            setFilter(e.target.value);
+            setCurrentPage(0);
+            setAllProductsPage(0);
+          }}
           value={filter}
         >
           <option value="todos">Todos</option>
@@ -126,31 +87,39 @@ export default function Home() {
         </select>
       </div>
 
-      {/* Carrusel de productos */}
+      {/* Promociones */}
       <h2 className={styles.gridTitle}>Promociones</h2>
       <div className={styles.containerGrid}>
         <button
-          onClick={handlePrevious}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
           className={styles.scrollButtonPrev}
           disabled={currentPage === 0}
         >
           {"<"}
         </button>
         <div className={styles.productGrid}>
-          {currentProducts.map((product, index) => (
-            <div
-              key={product.id}
-              className={`${styles.productLink} ${styles.slideIn}`}
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
+          {loading
+            ? Array.from({ length: itemsPerPage }).map((_, idx) => (
+                <div key={idx} className={styles.productLink}>
+                  <div className={styles.card}>
+                    <div className={styles.cardImagePlaceholder}></div>
+                    <div className={styles.cardDetailsPlaceholder}>
+                      <div className={styles.cardTitlePlaceholder}></div>
+                      <div className={styles.cardPricePlaceholder}></div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            : currentProducts.map((product) => (
+                <div key={product.id} className={styles.productLink}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
         </div>
         <button
-          onClick={handleNext}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))
+          }
           className={styles.scrollButtonNext}
           disabled={currentPage === totalPages - 1}
         >
@@ -158,22 +127,26 @@ export default function Home() {
         </button>
       </div>
 
-      <div className={styles.gridContainerResponsive}>
-        {filteredProducts.map((product) => (
-          <div key={product.id} className={styles.productItem}>
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
-
-      {/* Grilla de todos los productos */}
+      {/* Todos los Productos */}
       <h2 className={styles.gridTitleDos}>Todos los Productos</h2>
       <div className={styles.gridContainer}>
-        {filteredProducts.map((product) => (
-          <div key={product.id} className={styles.productItem}>
-            <ProductCardTotal product={product} />
-          </div>
-        ))}
+        {loading
+          ? Array.from({ length: allProductsPerPage }).map((_, idx) => (
+              <div key={idx} className={styles.productItem}>
+                <div className={styles.card}>
+                  <div className={styles.cardImagePlaceholder}></div>
+                  <div className={styles.cardDetailsPlaceholder}>
+                    <div className={styles.cardTitlePlaceholder}></div>
+                    <div className={styles.cardPricePlaceholder}></div>
+                  </div>
+                </div>
+              </div>
+            ))
+          : currentAllProducts.map((product) => (
+              <div key={product.id} className={styles.productItem}>
+                <ProductCardTotal product={product} />
+              </div>
+            ))}
       </div>
     </div>
   );

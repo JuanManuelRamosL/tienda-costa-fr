@@ -94,7 +94,7 @@
 }
 
 .image {
-	width: 20%;
+	width: 30%;
 	height: auto;
 	border-radius: 7px;
 }
@@ -103,7 +103,7 @@
 	width: 50%;
 	display: flex;
 	justify-content: end;
-	align-items: center;
+	align-items: end;
 	gap: 20px;
 	/* background-color: blue; */
 }
@@ -157,4 +157,40 @@
 .totalText {
 	font-size: 25px;
 	font-weight: bold;
+}
+
+.buttonsResponsive {
+	display: none;
+}
+
+@media screen and (max-width: 768px) {
+	.buttonsResponsive {
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 10px;
+	}
+
+	.containerButtonsCarrito {
+		display: none;
+	}
+
+	.cartItem {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.info {
+		flex-direction: column;
+	}
+
+	.containerImage {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+
+	.image {
+		width: 70%;
+	}
 }

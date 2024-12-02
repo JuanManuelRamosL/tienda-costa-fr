@@ -47,11 +47,11 @@ const Carrito = () => {
             </div>
             <h3 className={styles.textLink}>
               Si tienes una cuenta{" "}
-              <Link href="" className={styles.linkLogin}>
+              <Link href="/auth/login" className={styles.linkLogin}>
                 <u>Inicia Sesión</u>
               </Link>{" "}
               para poder finalizar tus compras. <br />O{" "}
-              <Link href="" className={styles.linkLogin}>
+              <Link href="/auth/login" className={styles.linkLogin}>
                 <u>registrate</u>
               </Link>{" "}
               si no tenés una.
@@ -61,14 +61,25 @@ const Carrito = () => {
           cart.map((product) => (
             <div key={product.id} className={styles.cartItem}>
               <div className={styles.info}>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className={styles.image}
-                />
+                {/* <div className={styles.containerImage}> */}
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className={styles.image}
+                  />
+                {/* </div> */}
                 <div className={styles.infoProduct}>
                   <h3 className={styles.name}>{product.name}</h3>
                   <p className={styles.price}>${product.price}</p>
+                </div>
+                <div className={styles.buttonsResponsive}>
+                  <button
+                    className={styles.removeButton}
+                    onClick={() => handleRemoveFromCart(product.id)}
+                  >
+                    Eliminar
+                  </button>
+                  <button className={styles.buttonComprar}>Comprar</button>
                 </div>
               </div>
               <div className={styles.containerButtonsCarrito}>
