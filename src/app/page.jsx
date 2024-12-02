@@ -21,7 +21,6 @@ export default function Home() {
   const [allProductsPage, setAllProductsPage] = useState(0);
   const itemsPerPage = 4;
 
-
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
