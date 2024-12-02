@@ -6,19 +6,21 @@ import useStore from "../../store";
 import ProductCard from "../components/productCard";
 import ProductCardTotal from "@/components/productCardTotal";
 import styles from "./page.module.css";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const products = useStore((state) => state.products);
   const setProducts = useStore((state) => state.setProducts);
+  const { data: session, status } = useSession();
 
   const [currentPage, setCurrentPage] = useState(0);
-  const [allProductsPage, setAllProductsPage] = useState(0);
   const [filter, setFilter] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-
+  const allProductsPerPage = 5; // Productos por página en "Todos los Productos"
+  const [allProductsPage, setAllProductsPage] = useState(0);
   const itemsPerPage = 4;
-  const allProductsPerPage = 5;
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -46,13 +48,7 @@ export default function Home() {
     return matchesCategory && matchesSearch;
   });
 
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-  const startIndex = currentPage * itemsPerPage;
-  const currentProducts = filteredProducts.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
+  // Paginación para "Todos los Productos"
   const allProductsTotalPages = Math.ceil(
     filteredProducts.length / allProductsPerPage
   );
@@ -60,6 +56,22 @@ export default function Home() {
   const currentAllProducts = filteredProducts.slice(
     allProductsStartIndex,
     allProductsStartIndex + allProductsPerPage
+  );
+
+  const handlePreviousAllProducts = () => {
+    if (allProductsPage > 0) setAllProductsPage(allProductsPage - 1);
+  };
+
+  const handleNextAllProducts = () => {
+    if (allProductsPage < allProductsTotalPages - 1)
+      setAllProductsPage(allProductsPage + 1);
+  };
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = currentPage * itemsPerPage;
+  const currentProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
   );
 
   return (
@@ -147,6 +159,25 @@ export default function Home() {
                 <ProductCardTotal product={product} />
               </div>
             ))}
+      </div>
+      <div className={styles.pagination}>
+        <button
+          onClick={handlePreviousAllProducts}
+          disabled={allProductsPage === 0}
+          className={styles.buttonsPaginacion}
+        >
+          Anterior
+        </button>
+        <span className={styles.textPagination}>
+          Página {allProductsPage + 1} de {allProductsTotalPages}
+        </span>
+        <button
+          onClick={handleNextAllProducts}
+          disabled={allProductsPage === allProductsTotalPages - 1}
+          className={styles.buttonsPaginacion}
+        >
+          Siguiente
+        </button>
       </div>
     </div>
   );
