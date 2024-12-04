@@ -117,11 +117,13 @@ svg:hover {
 	box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
 }
 
-@media screen and (max-width: 325px) {
+@media screen and (max-width: 341px) {
 	.login-btn {
 		display: flex;
 		align-items: center;
-		width: 80px;
+		justify-content: center;
+		padding: 0px;
+		width: 100px;
 		height: 40px;
 		font-size: 12px;
 	}

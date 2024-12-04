@@ -44,6 +44,30 @@
   color: #000;
 }
 
+@media screen and (max-width: 587px) {
+  .buscador {
+    font-size: 16px;
+  }
+
+  .filtro {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 465px) {
+  .buscador {
+    width: 50%;
+    font-size: 14px;
+  }
+
+  .filtro {
+    width: 20%;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 17px;
+  }
+}
+
 .gridTitle {
   width: 90%;
   font-size: 2rem;
@@ -71,25 +95,40 @@
 }
 
 .scrollButtonPrev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
   font-size: 28px;
   position: absolute;
-  top: 55%;
-  background-color: #fff;
+  top: 130%;
+  left: 4%;
+  background-color: #000;
+  border: 1px solid rgba(245, 157, 8, 1);
   border-radius: 100%;
-  color: #000;
+  color: #fff;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .scrollButtonNext {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
   font-size: 28px;
   position: absolute;
-  right: 5%;
-  top: 55%;
-  background-color: #fff;
+  right: 4%;
+  top: 130%;
+  background-color: #000;
+  border: 1px solid rgba(245, 157, 8, 1);
   border-radius: 100%;
-  color: #000;
+  color: #fff;
   outline: none;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .productGrid {
@@ -202,20 +241,21 @@
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
 }
 
 .card {
-	width: 290px;
-	height: 510px;
-	border-top: 2px solid rgba(245, 157, 8, 1);
-	border-bottom: 2px solid rgba(245, 157, 8, 1);
-	border-radius: 7px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	background-color: #1e1e1e;
-	margin: 20px;
+  width: 290px;
+  height: 510px;
+  border-top: 2px solid rgba(245, 157, 8, 1);
+  border-bottom: 2px solid rgba(245, 157, 8, 1);
+  border-radius: 7px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #1e1e1e;
+  margin: 20px;
 }
 
 .cardImagePlaceholder {

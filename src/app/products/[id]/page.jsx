@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import useStore from "../../../../store";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import StockModal from "@/components/modal";
 
 export default function ProductDetail() {
   const { addToCart } = useStore();
@@ -53,8 +54,14 @@ console.log(user)
   };
 
   const handleFormSubmit = async () => {
+    // Verificar si el stock es suficiente antes de proceder
+    if (product.stock < 1) {
+      alert("El producto no tiene stock suficiente para realizar la compra.");
+      return; // Salir de la función si no hay stock suficiente
+    }
+  
     const totalPrice = product.price * formData.quantity; // Calcula el precio total
-
+  
     console.log({
       title: product.name,
       price: totalPrice, // Precio total enviado
@@ -64,9 +71,9 @@ console.log(user)
       nombre: formData.nombre,
       email: formData.email,
       telefono: formData.telefono,
-      userId:userDetails.id
+      userId: userDetails.id,
     });
-
+  
     try {
       const response = await fetch(
         "https://tienda-costa-bakend.vercel.app/api/create-order",
@@ -84,15 +91,15 @@ console.log(user)
             nombre: formData.nombre,
             email: formData.email,
             telefono: formData.telefono,
-            userId:userDetails.id
+            userId: userDetails.id,
           }),
         }
       );
-
+  
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status}`);
       }
-
+  
       const data = await response.json();
       // Redirige al usuario al checkout de MercadoPago
       window.location.href = data.url;
@@ -102,7 +109,7 @@ console.log(user)
       setShowModal(false); // Oculta el modal después de enviar la solicitud
     }
   };
-
+  
   const handleAddToCart = () => {
     addToCart(product); // Agrega el producto al carrito
     setShowNotification(true); // Muestra la notificación
@@ -155,6 +162,7 @@ console.log(userDetails)
             <div className={styles.containerDetails}>
               <h2 className={styles.name}>{product.name}</h2>
               {/* <p className={styles.description}>{product.description}</p> */}
+              
               <p className={styles.price}>${product.price}</p>
               <div className={styles.containerButtons}>
                 <button className={styles.buyButton} onClick={handleBuy}>
@@ -219,10 +227,11 @@ console.log(userDetails)
           <div className={styles.containerDescription}>
             <h1 className={styles.titleDescription}>Descripción:</h1>
             <p className={styles.description}>{product.description}</p>
+            <p className={styles.description}>Stock :{product.stock}</p>
           </div>
         </div>
 
-        {showModal && (
+        {showModal && product.stock > 1 ? (
           <div className={styles.modal}>
             <div className={styles.modalContent}>
               <h3>Completa tus datos</h3>
@@ -281,7 +290,7 @@ console.log(userDetails)
               </div>
             </div>
           </div>
-        )}
+        ): <StockModal show={showModal} onClose={() => setShowModal(false)} />}
       </div>
     </>
   );
