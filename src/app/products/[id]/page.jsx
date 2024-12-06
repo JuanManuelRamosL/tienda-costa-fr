@@ -20,7 +20,7 @@ export default function ProductDetail() {
   const user = useStore((state) => state.user);
   const { data: session, status } = useSession();
   const [userDetails, setUserDetails] = useState(null);
-console.log(user)
+  console.log(user);
   const product = products.find((p) => p.id === productId);
 
   const [showModal, setShowModal] = useState(false);
@@ -59,9 +59,9 @@ console.log(user)
       alert("El producto no tiene stock suficiente para realizar la compra.");
       return; // Salir de la función si no hay stock suficiente
     }
-  
+
     const totalPrice = product.price * formData.quantity; // Calcula el precio total
-  
+
     console.log({
       title: product.name,
       price: totalPrice, // Precio total enviado
@@ -73,7 +73,7 @@ console.log(user)
       telefono: formData.telefono,
       userId: userDetails.id,
     });
-  
+
     try {
       const response = await fetch(
         "https://tienda-costa-bakend.vercel.app/api/create-order",
@@ -95,11 +95,11 @@ console.log(user)
           }),
         }
       );
-  
+
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.status}`);
       }
-  
+
       const data = await response.json();
       // Redirige al usuario al checkout de MercadoPago
       window.location.href = data.url;
@@ -109,7 +109,7 @@ console.log(user)
       setShowModal(false); // Oculta el modal después de enviar la solicitud
     }
   };
-  
+
   const handleAddToCart = () => {
     addToCart(product); // Agrega el producto al carrito
     setShowNotification(true); // Muestra la notificación
@@ -143,10 +143,10 @@ console.log(user)
       setError(err.message);
     }
   };
-console.log(userDetails)
+  console.log(userDetails);
   return (
     <>
-     {/*  <Link href="/" className={styles.backLink}>
+      {/*  <Link href="/" className={styles.backLink}>
         &larr; Volver a la tienda 
       </Link> */}
       <div className={styles.productDetailGeneral}>
@@ -160,10 +160,39 @@ console.log(userDetails)
               />
             </div>
             <div className={styles.containerDetails}>
-              <h2 className={styles.name}>{product.name}</h2>
-              {/* <p className={styles.description}>{product.description}</p> */}
-              
-              <p className={styles.price}>${product.price}</p>
+              <div className={styles.containerSuperior}>
+                <h2 className={styles.name}>{product.name}</h2>
+                {/* <p className={styles.description}>{product.description}</p> */}
+
+                <h1 className={styles.price}>${product.price}</h1>
+                <p className={styles.textEnvio}>
+                  Envío Gratis{" "}
+                  <svg
+                    width="33px"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 7H16.3373C16.5818 7 16.7041 7 16.8192 7.02763C16.9213 7.05213 17.0188 7.09253 17.1083 7.14736C17.2092 7.2092 17.2957 7.29568 17.4686 7.46863L21.5314 11.5314C21.7043 11.7043 21.7908 11.7908 21.8526 11.8917C21.9075 11.9812 21.9479 12.0787 21.9724 12.1808C22 12.2959 22 12.4182 22 12.6627V15.5C22 15.9659 22 16.1989 21.9239 16.3827C21.8224 16.6277 21.6277 16.8224 21.3827 16.9239C21.1989 17 20.9659 17 20.5 17M15.5 17H14M14 17V7.2C14 6.0799 14 5.51984 13.782 5.09202C13.5903 4.71569 13.2843 4.40973 12.908 4.21799C12.4802 4 11.9201 4 10.8 4H5.2C4.0799 4 3.51984 4 3.09202 4.21799C2.71569 4.40973 2.40973 4.71569 2.21799 5.09202C2 5.51984 2 6.0799 2 7.2V15C2 16.1046 2.89543 17 4 17M14 17H10M10 17C10 18.6569 8.65685 20 7 20C5.34315 20 4 18.6569 4 17M10 17C10 15.3431 8.65685 14 7 14C5.34315 14 4 15.3431 4 17M20.5 17.5C20.5 18.8807 19.3807 20 18 20C16.6193 20 15.5 18.8807 15.5 17.5C15.5 16.1193 16.6193 15 18 15C19.3807 15 20.5 16.1193 20.5 17.5Z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </p>
+                {product.stock > 0 ? (
+                  <p className={styles.stockMessageDisponible}>Producto con stock disponible.</p>
+                ) : (
+                  <p className={styles.stockMessageNoDisponible}>Producto sin stock disponible.</p>
+                )}
+
+                <p className={styles.description}>
+                  Stock: {product.stock} unidades
+                </p>
+              </div>
               <div className={styles.containerButtons}>
                 <button className={styles.buyButton} onClick={handleBuy}>
                   Comprar
@@ -227,7 +256,6 @@ console.log(userDetails)
           <div className={styles.containerDescription}>
             <h1 className={styles.titleDescription}>Descripción:</h1>
             <p className={styles.description}>{product.description}</p>
-            <p className={styles.description}>Stock :{product.stock}</p>
           </div>
         </div>
 
@@ -290,7 +318,9 @@ console.log(userDetails)
               </div>
             </div>
           </div>
-        ): <StockModal show={showModal} onClose={() => setShowModal(false)} />}
+        ) : (
+          <StockModal show={showModal} onClose={() => setShowModal(false)} />
+        )}
       </div>
     </>
   );

@@ -44,7 +44,7 @@
 	width: 35%;
 	display: flex;
 	text-align: start;
-	justify-content: start;
+	justify-content: center;
 	align-items: start;
 	padding: 20px;
 	flex-direction: column;
@@ -54,7 +54,6 @@
 }
 
 .name,
-.description,
 .price {
 	font-weight: bold;
 }
@@ -82,11 +81,44 @@
 }
 
 .description {
+	font-size: 19px;
+	font-weight: bold;
 	line-height: 30px;
 }
 
 .price {
 	font-size: 25px;
+}
+
+.containerSuperior {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.textEnvio {
+	font-size: 20px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	color: rgba(245, 157, 8, 1);
+}
+
+.stockMessageNoDisponible {
+	font-size: 19px;
+	font-weight: bold;
+	color: rgba(196, 196, 196, 0.681);
+}
+
+.stockMessageDisponible {
+	font-size: 19px;
+	font-weight: bold;
+	color: rgba(245, 157, 8, 1);
+}
+
+.stock {
+	font-size: 19px;
+	font-weight: bold;
 }
 
 .containerButtons {
@@ -278,4 +310,3 @@
 	display: flex;
 	justify-content: space-around;
 }
-
