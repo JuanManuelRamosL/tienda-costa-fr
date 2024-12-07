@@ -1,0 +1,96 @@
+/* Overlay */
+.modalOverlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 50;
+  }
+  
+  /* Modal Container */
+  .modalContainer {
+	background-color: #fff;
+	width: 100%;
+	max-width: 24rem; /* 384px */
+	padding: 2rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	text-align: center;
+	animation: modal-fade-in 0.3s ease-in-out;
+  }
+  
+  /* Modal Title */
+  .modalTitle {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #000000; /* Red-600 */
+	margin-bottom: 1rem;
+  }
+  
+  /* Modal Message */
+  .modalMessage {
+	color: #4b5563; /* Gray-700 */
+	margin-bottom: 1.5rem;
+  }
+  
+  /* Buttons */
+  .modalButtons {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+  }
+  
+  .modalButton {
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	font-weight: 500;
+	border-radius: 0.375rem;
+	text-decoration: none;
+	text-align: center;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* Login Button */
+  .modalLogin {
+	background-color: #005bca; /* Orange-500 */
+	color: #fff;
+	border: none;
+	transition: 0.4s;
+	padding: 3px;
+	border-radius: 5px;
+  }
+  
+  .modalLogin:hover {
+	background-color: #003bd1; /* Orange-600 */
+	transform: scale(1.05);
+  }
+  
+  /* Close Button */
+  .modalClose {
+	background-color: #914217; /* Gray-500 */
+	color: #fff;
+	border: none;
+	transition: 0.3s;
+	padding: 3px;
+	border-radius: 5px;
+  }
+  
+  .modalClose:hover {
+	background-color: #d20404; /* Gray-600 */
+	transform: scale(1.05);
+  }
+  
+  /* Modal Animation */
+  @keyframes modal-fade-in {
+	from {
+	  opacity: 0;
+	  transform: scale(0.9);
+	}
+	to {
+	  opacity: 1;
+	  transform: scale(1);
+	}
+  }
+  
