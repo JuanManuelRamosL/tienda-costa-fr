@@ -7,7 +7,8 @@ import ProductCard from "../components/productCard";
 import ProductCardTotal from "@/components/productCardTotal";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
-
+import Footer from "@/components/foter";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 export default function Home() {
   const products = useStore((state) => state.products);
   const setProducts = useStore((state) => state.setProducts);
@@ -178,6 +179,7 @@ export default function Home() {
           Siguiente
         </button>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

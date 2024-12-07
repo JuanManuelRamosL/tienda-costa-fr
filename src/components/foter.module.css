@@ -1,0 +1,41 @@
+.footer {
+	background-color: #1c1c1c;
+	color: #fff;
+	padding: 20px 0;
+	text-align: center;
+	border-top: 2px solid #ff9900; /* Color de borde en el estilo de tu e-commerce */
+  }
+  
+  .footerContainer {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .footerLinks {
+	display: flex;
+	gap: 20px;
+	margin-bottom: 10px;
+  }
+  
+  .footerLink {
+	color: #ff9900; /* Naranja, como en tu e-commerce */
+	font-size: 1.2rem;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	transition: color 0.3s ease;
+  }
+  
+  .footer-link:hover {
+	color: #fff;
+  }
+  
+  .footerText {
+	font-size: 0.9rem;
+	color: #bbb;
+  }
+  
