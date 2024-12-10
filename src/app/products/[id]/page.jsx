@@ -73,6 +73,7 @@ export default function ProductDetail() {
       email: formData.email,
       telefono: formData.telefono,
       userId: userDetails.id,
+      codigo_postal:formData.codigo_postal,
     });
 
     try {
