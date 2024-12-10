@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
         <div className={styles.footerLinks}>
-          <Link href="https://www.instagram.com" target="_blank" className={styles.footerLink}>
+          <Link href="https://www.instagram.com/powerpoint960/" target="_blank" className={styles.footerLink}>
             <i className="fab fa-instagram"></i> Instagram
           </Link>
           <Link href="https://www.facebook.com" target="_blank" className={styles.footerLink}>
