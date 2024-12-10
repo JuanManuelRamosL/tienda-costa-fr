@@ -102,7 +102,7 @@ export default function ProductDetail() {
 
       const data = await response.json();
       // Redirige al usuario al checkout de MercadoPago
-      window.location.href = data.url;
+      window.location.href = data.initPoint;
     } catch (error) {
       console.error("Error al realizar la compra:", error);
     } finally {
