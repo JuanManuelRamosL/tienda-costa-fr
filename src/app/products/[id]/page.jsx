@@ -28,6 +28,7 @@ export default function ProductDetail() {
     nombre: user?.name || "",
     email: user?.email || "",
     direccion: "",
+    codigo_postal:"",
     telefono: "",
     quantity: 1, // Nuevo campo para la cantidad
   });
@@ -88,6 +89,7 @@ export default function ProductDetail() {
             quantity: formData.quantity,
             unit_price: Number(product.price),
             direccion: formData.direccion,
+            codigo_postal:formData.codigo_postal,
             nombre: formData.nombre,
             email: formData.email,
             telefono: formData.telefono,
@@ -287,6 +289,15 @@ export default function ProductDetail() {
                   type="text"
                   name="direccion"
                   value={formData.direccion}
+                  onChange={handleInputChange}
+                />
+              </label>
+              <label>
+                Codigo Postal:
+                <input
+                  type="text"
+                  name="codigo_postal"
+                  value={formData.codigo_postal}
                   onChange={handleInputChange}
                 />
               </label>
