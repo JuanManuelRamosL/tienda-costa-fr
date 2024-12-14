@@ -62,11 +62,11 @@ const Carrito = () => {
             <div key={product.id} className={styles.cartItem}>
               <div className={styles.info}>
                 {/* <div className={styles.containerImage}> */}
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className={styles.image}
-                  />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className={styles.image}
+                />
                 {/* </div> */}
                 <div className={styles.infoProduct}>
                   <h3 className={styles.name}>{product.name}</h3>
@@ -79,7 +79,9 @@ const Carrito = () => {
                   >
                     Eliminar
                   </button>
-                  <button className={styles.buttonComprar}>Comprar</button>
+                  <Link href={`/products/${product.id}`}>
+                    <button className={styles.buttonComprar}>Comprar</button>
+                  </Link>
                 </div>
               </div>
               <div className={styles.containerButtonsCarrito}>
@@ -89,18 +91,20 @@ const Carrito = () => {
                 >
                   Eliminar
                 </button>
-                <button className={styles.buttonComprar}>Comprar</button>
+                <Link href={`/products/${product.id}`}>
+                  <button className={styles.buttonComprar}>Comprar</button>
+                </Link>
               </div>
             </div>
           ))
         )}
       </div>
-      <div className={styles.containerTotal}>
+      {/* <div className={styles.containerTotal}>
         <p className={styles.totalText}>
           Precio Total <span>${totalPrice}</span>
         </p>
         <button className={styles.buttonComprar}>Pagar Pedido</button>
-      </div>
+      </div> */}
     </div>
   );
 };
