@@ -1,3 +1,4 @@
+/* Estilos generales */
 a {
 	text-decoration: none;
 	color: #000;
@@ -22,7 +23,7 @@ svg:hover {
 
 .header {
 	width: 100%;
-	height: 60px;
+	height: 80px;
 	background: rgba(31, 31, 33, 1);
 	border-bottom: 2px solid rgba(245, 157, 8, 1);
 }
@@ -32,15 +33,32 @@ svg:hover {
 	height: 100%;
 	justify-content: space-between;
 	align-items: center;
+	position: relative;
+}
+
+.container-logo {
+	margin-left: 10px;
+}
+
+.title {
+	font-size: 35px;
+	color: rgba(245, 157, 8, 1);
+}
+
+.img-logo {
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
 }
 
 .nav-links {
 	display: flex;
 	gap: 1.5rem;
-	justify-content: center;
+	justify-content: end;
 	align-items: center;
 	flex-grow: 1;
 	margin-left: 50px;
+	transition: transform 0.3s ease-in-out;
 }
 
 .links {
@@ -56,13 +74,6 @@ svg:hover {
 
 .links:hover {
 	color: rgba(245, 157, 8, 1);
-}
-
-.user-section {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-	margin-right: 10px;
 }
 
 .user-info {
@@ -117,18 +128,42 @@ svg:hover {
 	box-shadow: 2px 2px 0px rgba(245, 158, 8, 0.681);
 }
 
-@media screen and (max-width: 341px) {
-	.login-btn {
+.menu-toggle {
+	display: none;
+	cursor: pointer;
+}
+
+.menu-toggle svg {
+	color: white;
+}
+
+@media (max-width: 768px) {
+	.nav-links {
+		display: none;
+		position: absolute;
+		top: 60px;
+		right: 0;
+		background: rgba(31, 31, 33, 1);
+		flex-direction: column;
+		gap: 1rem;
+		width: 100%;
+		padding: 1rem;
+	}
+
+	.nav-links.active {
+		width: 100%;
+		height: 200px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0px;
-		width: 100px;
-		height: 40px;
-		font-size: 12px;
+		gap: 35px;
+		margin-top: 20px;
+		background-color: #1c1c1c;
+		border-bottom: 2px solid rgba(245, 157, 8, 1);
+		z-index: 10000;
 	}
 
-	.svg {
-		width: 30px;
+	.menu-toggle {
+		display: block;
 	}
 }

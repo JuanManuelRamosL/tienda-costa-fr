@@ -79,7 +79,7 @@ export default function Home() {
       <div className={styles.containerBuscador}>
         <input
           type="text"
-          placeholder="Buscar producto"
+          placeholder="&nbsp;&nbsp;Buscar producto"
           className={styles.buscador}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,9 +93,9 @@ export default function Home() {
           }}
           value={filter}
         >
-          <option value="todos">Todos</option>
-          <option value="suplementos">Suplementos</option>
-          <option value="ropa">Ropa</option>
+          <option value="todos">&nbsp;Todos</option>
+          <option value="suplementos">&nbsp;Suplementos</option>
+          <option value="ropa">&nbsp;Ropa</option>
         </select>
       </div>
 
