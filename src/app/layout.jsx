@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <Head>
-          <link rel="icon" href="/logo.ico"/>
+          <link rel="icon" href="/favicon.ico"/>
         </Head>
       </head>
       <body>
