@@ -3,7 +3,7 @@ import React from "react";
 import useStore from "../../store";
 import styles from "./modal.module.css"
 
-const StockModal = ({ show, onClose }) => {
+const StockModal = ({ show, onClose ,setUserDetails}) => {
   const user = useStore((state) => state.user);
   if (!show) return null; // No renderizar el modal si no debe mostrarse
 
@@ -40,6 +40,17 @@ const StockModal = ({ show, onClose }) => {
             <div className={styles.modalButtons}>
               <Link href="/auth/login" className={styles.modalLogin}>
                 Iniciar Sesión
+              </Link>
+              <Link
+                href="#"
+                className={styles.modalLogin}
+                onClick={() => {
+                  useStore.setState({ user: { anonymous: true } });
+                  setUserDetails({ id: 1 }); // Actualizar setUserDetails con id 1
+                  onClose();
+                }}
+              >
+                Continuar sin usuario
               </Link>
               <button onClick={onClose} className={styles.modalClose}>
                 Cerrar

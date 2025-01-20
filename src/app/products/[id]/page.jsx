@@ -72,7 +72,7 @@ export default function ProductDetail() {
       nombre: formData.nombre,
       email: formData.email,
       telefono: formData.telefono,
-      userId: userDetails.id,
+      userId: userDetails?.id|| "1",
       codigo_postal:formData.codigo_postal,
     });
 
@@ -94,7 +94,7 @@ export default function ProductDetail() {
             nombre: formData.nombre,
             email: formData.email,
             telefono: formData.telefono,
-            userId: userDetails.id,
+            userId: userDetails.id || 1,
           }),
         }
       );
@@ -331,7 +331,7 @@ export default function ProductDetail() {
             </div>
           </div>
         ) : (
-          <StockModal show={showModal} onClose={() => setShowModal(false)} />
+          <StockModal show={showModal} onClose={() => setShowModal(false)} setUserDetails={setUserDetails}/>
         )}
       </div>
     </>
